@@ -8,7 +8,7 @@ executors:
   ozet-excutor:
     environment:
       IMAGE_NAME: ozetteam/ozet-web
-      SLACK_APP_PLATFORM: OZET Web
+      SLACK_APP_PLATFORM: OZET Resume
     docker:
       - image: cimg/base:stable
         auth:
