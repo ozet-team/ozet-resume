@@ -18,6 +18,6 @@ ENV CI=false
 RUN yarn
 RUN yarn build
 
-EXPOSE 3030
+EXPOSE 5030
 
-CMD serve -s build -p 3030
+CMD serve -s build -p 5030
