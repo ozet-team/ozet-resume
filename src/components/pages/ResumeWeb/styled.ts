@@ -1,10 +1,17 @@
+import { motion } from 'framer-motion';
 import styled from 'styled-components';
 
+export const ResumeWapper = styled.div`
+  background: #f0f2f5;
+`;
 export const ProfileWrapper = styled.div`
   background: #f0f2f5;
   padding: 0px 20px;
   display: flex;
   flex-direction: column;
+  min-height: 148px;
+  top: 0px;
+  z-index: 0;
 `;
 export const ProfileImage = styled.img`
   height: 180px;
@@ -14,11 +21,33 @@ export const ProfileImageWrapper = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column-reverse;
-  height: 278px;
+  margin-top: 36px;
+  margin-bottom: 60px;
 `;
-export const ProfileTextWrapper = styled.div``;
+export const ProfileNameWrapper = styled.div`
+  margin-top: 64px;
+`;
+export const ProfileTextWrapper = styled.div`
+  margin-bottom: 30px;
+`;
+export const ProfileCategory = styled.td`
+  width: 49px;
+  font-size: 14px;
+  font-weight: 600;
+  padding-bottom: 8px;
+`;
+export const ProfileText = styled.td`
+  font-size: 14px;
+  padding-left: 12px;
+  padding-bottom: 8px;
+  width: 250px;
+`;
+export const ProfileTableRow = styled.tr`
+  display: flex;
+  flex-direction: row;
+`;
+
 export const ProfileNickname = styled.div`
-  margin-top: 31px;
   font-size: 14px; ;
 `;
 export const ProfileName = styled.div`
@@ -31,17 +60,27 @@ export const ProfileIntroduce = styled.div`
   margin-bottom: 20px;
   font-size: 16px;
 `;
-export const ResumeDetailWrapper = styled.div`
+export const ResumeDetailWrapper = styled(motion.div)`
+  border-style: solid;
+  border-width: 0px;
+  border-radius: 16px;
+  background-color: white;
+
+  z-index: 1;
+`;
+export const ResumeDetailInner = styled.div`
   margin-top: 24px;
   padding: 0px 20px;
   font-family: 'Apple SD Gothic Neo', sans-serif;
 `;
 export const ResumeSubTitle = styled.div`
   font-size: 14px;
+  font-weight: 600;
 `;
 export const ResumeDetailTitle = styled.div`
   margin-top: 10px;
   font-size: 14px;
+  font-weight: 600;
 `;
 export const ResumeDetailText = styled.div`
   margin-top: 4px;
@@ -56,5 +95,9 @@ export const ResumeBr = styled.div`
   height: 1px;
   background: black;
   opacity: 10%;
-  margin: 16px 0px;
+  margin-top: 10px;
+  margin-bottom: 8px;
+`;
+export const ResumeMargin = styled.div`
+  height: 32px;
 `;

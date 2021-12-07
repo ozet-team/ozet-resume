@@ -46,5 +46,5 @@ export const ResumeData = {
       period: '2000.00 ~ 2000.00',
     },
   ],
-  military: '해당사함 없음',
+  military: '해당사항 없음',
 };
