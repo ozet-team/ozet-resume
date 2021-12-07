@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   ProfileImage,
   ProfileImageWrapper,
@@ -19,12 +19,22 @@ import './Resume.css';
 import ResumeCategoryBar from 'src/components/common/ResumeCategoryBar';
 import { useParams } from 'react-router-dom';
 import { ResumeData } from '../../../api/ResumeData';
+import Api from '../../../api/index';
 
 const ResumeWeb = () => {
   const tabs = [{ label: '상세정보' }, { label: 'SNS' }];
   const [selectedTab, setSelectedTab] = useState('상세정보');
-  const { id } = useParams<{ id: string }>();
-  const profileData = ResumeData.find((data) => data.id === Number(id));
+  const [profileData, setProfileData] = useState<typeof ResumeData>();
+  const id = useParams<string>();
+  const getResumeData = async () => {
+    const { data }: any = await Api.getResume(id);
+    setProfileData(data);
+  };
+  useEffect(() => {
+    // setProfileData(ResumeData);
+    getResumeData();
+  }, []);
+
   return (
     <>
       <ProfileWrapper className={'Profile'}>
