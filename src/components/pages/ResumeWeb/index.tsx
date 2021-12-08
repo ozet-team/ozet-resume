@@ -20,6 +20,7 @@ import {
   ResumeSubTitle,
   ResumeTerm,
   ResumeWapper,
+  StyledTable,
 } from './styled';
 import exProfileImg from '../../../img/profileImg.png';
 import './Resume.css';
@@ -31,38 +32,59 @@ import './Resume.css';
 import { imgAnimate, profileAnimate } from '../../common/Variants/Variants';
 const ResumeWeb = () => {
   const tabs = [
-    { label: '자기소개' },
-    { label: '경력' },
-    { label: '자격증' },
-    { label: '학력' },
-    { label: '병역' },
-    { label: 'SNS' },
+    { label: '자기소개', id: 'introduce' },
+    { label: '경력', id: 'career' },
+    { label: '자격증', id: 'certificate' },
+    { label: '학력', id: 'academic' },
+    { label: '병역', id: 'military' },
+    { label: 'SNS', id: 'sns' },
   ];
-  const introduce = useRef(null);
-  const career = useRef(null);
-  const certificate = useRef(null);
-  const academic = useRef(null);
-  const military = useRef(null);
-  const sns = useRef(null);
-  // const lastElement = useRef<HTMLDivElement>(null);
-
-  const [selectedTab, setSelectedTab] = useState('자기소개');
-  const [scroll, setScroll] = useState(0);
+  const introduce = useRef<HTMLDivElement>(null);
+  const career = useRef<HTMLDivElement>(null);
+  const certificate = useRef<HTMLDivElement>(null);
+  const academic = useRef<HTMLDivElement>(null);
+  const military = useRef<HTMLDivElement>(null);
+  const sns = useRef<HTMLDivElement>(null);
+  const lastElement = useRef<HTMLDivElement>(null);
+  const [selectedTab, setSelectedTab] = useState('introduce');
+  const [profileHeight, setProfileHeight] = useState<number | undefined>(0);
+  const [tabHeight, setTabHeight] = useState<number | undefined>(0);
   // const [profileData, setProfileData] = useState<typeof ResumeData>();
+  const [toggle, setToggle] = useState<boolean>(false);
+
   const id = useParams<string>();
   // const getResumeData = async () => {
   //   const { data }: any = await Api.getResume(id);
   //   setProfileData(data);
   // };
+
+  const checkID = async (key: string) => {
+    switch (key) {
+      case 'introduce':
+        return introduce.current?.getBoundingClientRect().bottom;
+      case 'career':
+        return career.current?.getBoundingClientRect().bottom;
+      case 'certificate':
+        return certificate.current?.getBoundingClientRect().bottom;
+      case 'academic':
+        return academic.current?.getBoundingClientRect().bottom;
+      case 'military':
+        return military.current?.getBoundingClientRect().bottom;
+      case 'sns':
+        return sns.current?.getBoundingClientRect().bottom;
+    }
+  };
+
   useEffect(() => {
-    // const peBTM = lastElement.current?.getBoundingClientRect().bottom;
+    setProfileHeight(lastElement.current?.getBoundingClientRect().bottom);
+
     // setProfileData(ResumeData);
     // getResumeData();
-  }, []);
-  const [toggle, setToggle] = useState<boolean>(false);
+  }, [selectedTab]);
+
   const modalAnimate = {
     unActive: {
-      top: 560,
+      top: profileHeight,
       transition: {
         duration: 0.5,
       },
@@ -89,6 +111,8 @@ const ResumeWeb = () => {
           tabs={tabs}
           selectedTab={selectedTab}
           setSelectedTab={setSelectedTab}
+          tabHeight={tabHeight}
+          checkID={checkID}
         />
         <ResumeDetailInner>
           <ResumeSubTitle ref={introduce}>자기소개 </ResumeSubTitle>
@@ -164,7 +188,7 @@ const ResumeWeb = () => {
           animate={toggle ? 'active' : 'unActive'}
           transition={{ duration: 0.3 }}
         >
-          <table>
+          <StyledTable>
             <ProfileTableRow>
               <ProfileCategory>경력</ProfileCategory>
               <ProfileText>
@@ -186,9 +210,10 @@ const ResumeWeb = () => {
             </ProfileTableRow>
             <ProfileTableRow>
               <ProfileCategory>SNS</ProfileCategory>
-              <ProfileText ref={lastElement}>@hair_ozet</ProfileText>
+              <ProfileText>@hair_ozet</ProfileText>
             </ProfileTableRow>
-          </table>
+          </StyledTable>
+          <div ref={lastElement} />
         </ProfileTextWrapper>
       </ProfileWrapper>
     </ResumeWapper>

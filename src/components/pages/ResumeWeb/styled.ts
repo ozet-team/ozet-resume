@@ -40,7 +40,8 @@ export const ProfileNameWrapper = styled.div`
   flex-direction: column;
   height: 50px;
 `;
-export const ProfileTextWrapper = styled(motion.div)`
+export const ProfileTextWrapper = styled(motion.div)``;
+export const StyledTable = styled(motion.div)`
   margin-bottom: 30px;
 `;
 export const ProfileCategory = styled.td`
