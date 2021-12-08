@@ -11,23 +11,36 @@ export const ProfileWrapper = styled.div`
   flex-direction: column;
   min-height: 148px;
   top: 0px;
+  right: 0px;
+  left: 0px;
   z-index: 0;
+  position: relative;
 `;
-export const ProfileImage = styled.img`
+export const ProfileImage = styled(motion.img)`
   height: 180px;
   width: 180px;
+  position: absolute;
 `;
-export const ProfileImageWrapper = styled.div`
+export const ProfileImageWrapper = styled(motion.div)`
   display: flex;
   align-items: center;
-  flex-direction: column-reverse;
+  justify-content: center;
   margin-top: 36px;
+  height: 180px;
   margin-bottom: 60px;
 `;
-export const ProfileNameWrapper = styled.div`
+export const ProfileHeaderWrapper = styled.div`
   margin-top: 64px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
 `;
-export const ProfileTextWrapper = styled.div`
+export const ProfileNameWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: 50px;
+`;
+export const ProfileTextWrapper = styled(motion.div)`
   margin-bottom: 30px;
 `;
 export const ProfileCategory = styled.td`
@@ -65,8 +78,8 @@ export const ResumeDetailWrapper = styled(motion.div)`
   border-width: 0px;
   border-radius: 16px;
   background-color: white;
-
-  z-index: 1;
+  z-index: 99;
+  position: absolute;
 `;
 export const ResumeDetailInner = styled.div`
   margin-top: 24px;
