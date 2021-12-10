@@ -10,12 +10,15 @@ import {
   ProfileTableRow,
   ProfileText,
   ProfileTextWrapper,
+  ProfileWorkRow,
   ProfileWrapper,
   ResumeBr,
+  ResumeColumnBar,
   ResumeDetailInner,
   ResumeDetailText,
   ResumeDetailTitle,
   ResumeDetailWrapper,
+  ResumeInstagramLogo,
   ResumeMargin,
   ResumeModalInner,
   ResumeModalWrapper,
@@ -29,16 +32,16 @@ import './Resume.css';
 import ResumeCategoryBar from 'src/components/common/ResumeCategoryBar';
 import { useParams } from 'react-router-dom';
 import { ResumeData as profileData } from '../../../api/ResumeData';
-
+import InstagramImage from '../../../img/InstagramLogo.svg';
 import './Resume.css';
 import { imgAnimate, profileAnimate } from '../../common/Variants/Variants';
 const ResumeWeb = () => {
   const tabs = [
-    { label: '자기소개', id: 'introduce' },
     { label: '경력', id: 'career' },
     { label: '자격증', id: 'certificate' },
     { label: '학력', id: 'academic' },
     { label: '병역', id: 'military' },
+    { label: '자기소개', id: 'introduce' },
     { label: 'SNS', id: 'sns' },
   ];
   const profileDetail = useRef<HTMLDivElement>(null);
@@ -65,17 +68,17 @@ const ResumeWeb = () => {
   const checkID = async (key: string) => {
     switch (key) {
       case 'introduce':
-        return introduce.current?.getBoundingClientRect().bottom;
+        return introduce.current?.offsetTop;
       case 'career':
-        return career.current?.getBoundingClientRect().bottom;
+        return career.current?.offsetTop;
       case 'certificate':
-        return certificate.current?.getBoundingClientRect().bottom;
+        return certificate.current?.offsetTop;
       case 'academic':
-        return academic.current?.getBoundingClientRect().bottom;
+        return academic.current?.offsetTop;
       case 'military':
-        return military.current?.getBoundingClientRect().bottom;
+        return military.current?.offsetTop;
       case 'sns':
-        return sns.current?.getBoundingClientRect().bottom;
+        return sns.current?.offsetTop;
     }
   };
   console.log(modalHeight);
@@ -118,19 +121,11 @@ const ResumeWeb = () => {
               setSelectedTab={setSelectedTab}
               tabHeight={tabHeight}
               checkID={checkID}
+              profileDetail={profileDetail}
             />
             <ResumeDetailInner ref={profileDetail}>
-              <ResumeSubTitle ref={introduce}>자기소개 </ResumeSubTitle>
-              <ResumeBr />
-              <ResumeDetailText>
-                미용사는 고객에게 적합한 머리 스타일을 연출하고, 기타 고객의
-                머리 손질에 관련된 서비스를 제공하는 일을 담당한다. 고객의
-                얼굴이나 머리형태에 따라 알맞은 머리 모양을 권하고, 고객의 모발
-                상태와 형태, 모발의 손상 정도를 확인하여 머리모양을 결정
-              </ResumeDetailText>
-              <ResumeMargin />
               <ResumeSubTitle ref={career}>
-                경력 {profileData?.workTime}
+                경력 {profileData?.workPeriod}
               </ResumeSubTitle>
               <ResumeBr />
               {profileData?.workDetail.map((data) => (
@@ -161,11 +156,25 @@ const ResumeWeb = () => {
               <ResumeMargin />
               <ResumeSubTitle ref={military}>병역</ResumeSubTitle>
               <ResumeBr />
-              <ResumeDetailTitle>{profileData?.military}</ResumeDetailTitle>
+              <ResumeDetailTitle>
+                {profileData?.military.category}
+              </ResumeDetailTitle>
+              <ResumeDetailText>
+                {profileData?.military.period}
+              </ResumeDetailText>
+              <ResumeTerm>{profileData?.military.detail}</ResumeTerm>
               <ResumeMargin />
-              <ResumeSubTitle ref={sns}>SNS</ResumeSubTitle>
+              <ResumeSubTitle ref={introduce}>자기소개 </ResumeSubTitle>
               <ResumeBr />
-              <ResumeSubTitle>instagram.com/hair_ozet/</ResumeSubTitle>
+              <ResumeDetailText>{profileData?.introduce}</ResumeDetailText>
+              <ResumeMargin />
+              <ResumeSubTitle ref={sns}>
+                <ResumeInstagramLogo src={InstagramImage} />
+                <ResumeSubTitle>{profileData?.snsLink}</ResumeSubTitle>
+              </ResumeSubTitle>
+              <ResumeBr />
+
+              <ResumeMargin />
             </ResumeDetailInner>
           </ResumeModalInner>
         </ResumeModalWrapper>
@@ -199,25 +208,33 @@ const ResumeWeb = () => {
             <ProfileTableRow>
               <ProfileCategory>경력</ProfileCategory>
               <ProfileText>
-                인턴(스탭) 10년 12개월 매니저 10년 12개월 디자이너 10년 12개월
-                원장 10년 12개월
+                <ProfileWorkRow>
+                  <div>{profileData?.workElement.intern}</div>
+                  <ResumeColumnBar />
+                  <div>{profileData?.workElement.manager}</div>
+                </ProfileWorkRow>
+                <ProfileWorkRow>
+                  <div>{profileData?.workElement.designer}</div>
+                  <ResumeColumnBar />
+                  <div>{profileData?.workElement.ledger}</div>
+                </ProfileWorkRow>
               </ProfileText>
             </ProfileTableRow>
             <ProfileTableRow>
               <ProfileCategory>연락처</ProfileCategory>
-              <ProfileText>010-0000-0000</ProfileText>
+              <ProfileText>{profileData?.phone}</ProfileText>
             </ProfileTableRow>
             <ProfileTableRow>
               <ProfileCategory>생년월일</ProfileCategory>
-              <ProfileText>0000.00.00</ProfileText>
+              <ProfileText>{profileData?.birth}</ProfileText>
             </ProfileTableRow>
             <ProfileTableRow>
               <ProfileCategory>주소</ProfileCategory>
-              <ProfileText>서울시 00구 00동</ProfileText>
+              <ProfileText>{profileData?.address}</ProfileText>
             </ProfileTableRow>
             <ProfileTableRow>
               <ProfileCategory>SNS</ProfileCategory>
-              <ProfileText>@hair_ozet</ProfileText>
+              <ProfileText>{profileData?.snsLink}</ProfileText>
             </ProfileTableRow>
           </StyledTable>
           <div ref={lastElement} />

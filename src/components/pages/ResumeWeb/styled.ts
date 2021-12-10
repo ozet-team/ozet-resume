@@ -45,16 +45,16 @@ export const StyledTable = styled(motion.div)`
   margin-bottom: 30px;
 `;
 export const ProfileCategory = styled.td`
-  width: 49px;
+  min-width: 50px;
   font-size: 14px;
   font-weight: 600;
   padding-bottom: 8px;
 `;
 export const ProfileText = styled.td`
-  font-size: 14px;
+  font-size: 13px;
   padding-left: 12px;
   padding-bottom: 8px;
-  width: 250px;
+  width: 260px;
 `;
 export const ProfileTableRow = styled.tr`
   display: flex;
@@ -66,7 +66,7 @@ export const ProfileNickname = styled.div`
 `;
 export const ProfileName = styled.div`
   font-size: 24px;
-  font-weight: bold;
+  font-weight: 700;
   margin-top: 4px;
 `;
 export const ProfileIntroduce = styled.div`
@@ -89,16 +89,41 @@ export const ResumeModalWrapper = styled.div`
 export const ResumeModalInner = styled.div`
   overflow: initial;
 `;
+export const ProfileWorkRow = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 4px;
+`;
+export const ResumeColumnBar = styled.div`
+  width: 1px;
+  height: 19px;
+  margin: 0 6px;
+  background: black;
+`;
+
 export const ResumeDetailInner = styled.div`
-  margin-top: 24px;
+  position: relative;
   padding: 0px 20px;
   font-family: 'Apple SD Gothic Neo', sans-serif;
   overflow-y: scroll;
-  height: calc(100vh - 148px);
+  height: calc(100vh - 203px);
+  margin-top: 27px;
 `;
 export const ResumeSubTitle = styled.div`
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 600;
+  border-radius: 8px;
+  border-style: solid;
+  border-width: 0px;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+`;
+export const ResumeInstagramLogo = styled.img`
+  height: 26px;
+  width: 26px;
+  margin-right: 11px;
 `;
 export const ResumeDetailTitle = styled.div`
   margin-top: 10px;
@@ -118,8 +143,8 @@ export const ResumeBr = styled.div`
   height: 1px;
   background: black;
   opacity: 10%;
-  margin-top: 10px;
-  margin-bottom: 8px;
+  margin-top: 5px;
+  margin-bottom: 10px;
 `;
 export const ResumeMargin = styled.div`
   height: 32px;

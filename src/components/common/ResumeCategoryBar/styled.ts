@@ -20,4 +20,5 @@ export const StyledLi = styled.li`
   font-weight: bold;
   color: black;
   opacity: 30%;
+  -webkit-tap-highlight-color: transparent;
 `;

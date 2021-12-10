@@ -8,7 +8,7 @@ interface Props {
   selectedTab: string;
   setSelectedTab: (id: string) => void;
   tabHeight: number | undefined;
-
+  profileDetail: any;
   checkID: (key: string) => any;
 }
 
@@ -17,6 +17,7 @@ const ResumeCategoryBar = ({
   selectedTab,
   setSelectedTab,
   checkID,
+  profileDetail,
 }: Props) => {
   return (
     <>
@@ -29,7 +30,7 @@ const ResumeCategoryBar = ({
               onClick={() => {
                 setSelectedTab(item.id);
                 checkID(item.id).then((data: any) =>
-                  window.scrollTo({
+                  profileDetail.current.scrollTo({
                     top: data,
                     behavior: 'smooth',
                   }),
