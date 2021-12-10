@@ -179,6 +179,10 @@ const ResumeWeb = () => {
               </ResumeSnsLink>
               <ResumeImageWrapper>
                 <ResumeSnsImage src={InstagramTestImage} />
+                <ResumeSnsImage src={InstagramTestImage} />
+                <ResumeSnsImage src={InstagramTestImage} />
+                <ResumeSnsImage src={InstagramTestImage} />
+                <ResumeSnsImage src={InstagramTestImage} />
               </ResumeImageWrapper>
               <ResumeMargin />
             </ResumeDetailInner>

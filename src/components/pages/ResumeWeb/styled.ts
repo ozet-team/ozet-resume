@@ -139,11 +139,16 @@ export const ResumeSnsLink = styled.div`
 `;
 export const ResumeImageWrapper = styled.div`
   margin-top: 12px;
+  display: flex;
+  flex-direction: column;
 `;
 export const ResumeSnsImage = styled.img`
   width: 320px;
   height: 320px;
   margin-bottom: 20px;
+  border-radius: 12px;
+  border-width: 0px;
+  border-style: solid;
 `;
 
 export const ResumeDetailText = styled.div`
