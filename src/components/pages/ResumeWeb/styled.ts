@@ -133,6 +133,17 @@ export const ResumeDetailTitle = styled.div`
 export const ResumeSnsLink = styled.div`
   margin-bottom: 12px;
   font-size: 14px;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+`;
+export const ResumeImageWrapper = styled.div`
+  margin-top: 12px;
+`;
+export const ResumeSnsImage = styled.img`
+  width: 320px;
+  height: 320px;
+  margin-bottom: 20px;
 `;
 
 export const ResumeDetailText = styled.div`

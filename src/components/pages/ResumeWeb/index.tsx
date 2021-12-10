@@ -18,10 +18,12 @@ import {
   ResumeDetailText,
   ResumeDetailTitle,
   ResumeDetailWrapper,
+  ResumeImageWrapper,
   ResumeInstagramLogo,
   ResumeMargin,
   ResumeModalInner,
   ResumeModalWrapper,
+  ResumeSnsImage,
   ResumeSnsLink,
   ResumeSubTitle,
   ResumeTerm,
@@ -34,6 +36,8 @@ import ResumeCategoryBar from 'src/components/common/ResumeCategoryBar';
 import { useParams } from 'react-router-dom';
 import { ResumeData as profileData } from '../../../api/ResumeData';
 import InstagramImage from '../../../img/InstagramLogo.svg';
+import InstagramTestImage from '../../../img/InstagramTestImage.svg';
+
 import './Resume.css';
 import { imgAnimate, profileAnimate } from '../../common/Variants/Variants';
 const ResumeWeb = () => {
@@ -173,7 +177,9 @@ const ResumeWeb = () => {
                 <ResumeInstagramLogo src={InstagramImage} />
                 <ResumeSubTitle>{profileData?.snsLink}</ResumeSubTitle>
               </ResumeSnsLink>
-              <ResumeBr />
+              <ResumeImageWrapper>
+                <ResumeSnsImage src={InstagramTestImage} />
+              </ResumeImageWrapper>
               <ResumeMargin />
             </ResumeDetailInner>
           </ResumeModalInner>
