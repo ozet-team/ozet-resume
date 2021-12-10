@@ -80,12 +80,21 @@ export const ResumeDetailWrapper = styled(motion.div)`
   border-radius: 16px;
   background-color: white;
   z-index: 99;
-  position: absolute;
+  position: fixed;
+`;
+
+export const ResumeModalWrapper = styled.div`
+  display: block !important;
+`;
+export const ResumeModalInner = styled.div`
+  overflow: initial;
 `;
 export const ResumeDetailInner = styled.div`
   margin-top: 24px;
   padding: 0px 20px;
   font-family: 'Apple SD Gothic Neo', sans-serif;
+  overflow-y: scroll;
+  height: calc(100vh - 148px);
 `;
 export const ResumeSubTitle = styled.div`
   font-size: 14px;
