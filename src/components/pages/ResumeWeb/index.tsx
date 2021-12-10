@@ -22,6 +22,7 @@ import {
   ResumeMargin,
   ResumeModalInner,
   ResumeModalWrapper,
+  ResumeSnsLink,
   ResumeSubTitle,
   ResumeTerm,
   ResumeWapper,
@@ -168,12 +169,11 @@ const ResumeWeb = () => {
               <ResumeBr />
               <ResumeDetailText>{profileData?.introduce}</ResumeDetailText>
               <ResumeMargin />
-              <ResumeSubTitle ref={sns}>
+              <ResumeSnsLink ref={sns}>
                 <ResumeInstagramLogo src={InstagramImage} />
                 <ResumeSubTitle>{profileData?.snsLink}</ResumeSubTitle>
-              </ResumeSubTitle>
+              </ResumeSnsLink>
               <ResumeBr />
-
               <ResumeMargin />
             </ResumeDetailInner>
           </ResumeModalInner>

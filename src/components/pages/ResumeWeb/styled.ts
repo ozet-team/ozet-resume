@@ -84,7 +84,7 @@ export const ResumeDetailWrapper = styled(motion.div)`
 `;
 
 export const ResumeModalWrapper = styled.div`
-  display: block !important;
+  display: block;
 `;
 export const ResumeModalInner = styled.div`
   overflow: initial;
@@ -97,7 +97,7 @@ export const ProfileWorkRow = styled.div`
 `;
 export const ResumeColumnBar = styled.div`
   width: 1px;
-  height: 19px;
+  height: 11px;
   margin: 0 6px;
   background: black;
 `;
@@ -108,7 +108,7 @@ export const ResumeDetailInner = styled.div`
   font-family: 'Apple SD Gothic Neo', sans-serif;
   overflow-y: scroll;
   height: calc(100vh - 203px);
-  margin-top: 27px;
+  padding-top: 27px;
 `;
 export const ResumeSubTitle = styled.div`
   font-size: 16px;
@@ -126,17 +126,22 @@ export const ResumeInstagramLogo = styled.img`
   margin-right: 11px;
 `;
 export const ResumeDetailTitle = styled.div`
-  margin-top: 10px;
+  margin-bottom: 2px;
   font-size: 14px;
   font-weight: 600;
 `;
-export const ResumeDetailText = styled.div`
-  margin-top: 4px;
+export const ResumeSnsLink = styled.div`
+  margin-bottom: 12px;
   font-size: 14px;
 `;
+
+export const ResumeDetailText = styled.div`
+  margin-bottom: 6px;
+  font-size: 13px;
+`;
 export const ResumeTerm = styled.div`
-  margin-top: 4px;
-  font-size: 14px;
+  margin-bottom: 10px;
+  font-size: 13px;
   color: #828282;
 `;
 export const ResumeBr = styled.div`
