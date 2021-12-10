@@ -23,7 +23,7 @@ export const imgAnimate = {
     width: 50,
     height: 50,
     right: 20,
-    top: 68,
+    top: 24,
     transition: {
       duration: 0.5,
     },

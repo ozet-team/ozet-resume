@@ -30,7 +30,7 @@ export const ProfileImageWrapper = styled(motion.div)`
   margin-bottom: 60px;
 `;
 export const ProfileHeaderWrapper = styled.div`
-  margin-top: 64px;
+  margin-top: 24px;
   display: flex;
   justify-content: center;
   flex-direction: column;

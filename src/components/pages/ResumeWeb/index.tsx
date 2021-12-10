@@ -102,7 +102,7 @@ const ResumeWeb = () => {
     },
     active: {
       opacity: 1,
-      top: 148,
+      top: 104,
       transition: {
         duration: 0.5,
       },
