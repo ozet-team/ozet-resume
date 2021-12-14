@@ -14,20 +14,20 @@ export const ProfileWrapper = styled.div`
   right: 0px;
   left: 0px;
   z-index: 0;
-  position: relative;
+  position: fixed;
 `;
 export const ProfileImage = styled(motion.img)`
-  height: 180px;
-  width: 180px;
-  position: absolute;
+  transition: width 0.3s ease-in-out 0s;
 `;
 export const ProfileImageWrapper = styled(motion.div)`
   display: flex;
-  align-items: center;
   justify-content: center;
-  margin-top: 36px;
-  height: 180px;
+  transition: width 0.3s ease-in-out 0s;
+  left: 50%;
   margin-bottom: 60px;
+  padding: 0px;
+  position: static;
+  z-index: 1000;
 `;
 export const ProfileHeaderWrapper = styled.div`
   margin-top: 24px;
@@ -35,8 +35,13 @@ export const ProfileHeaderWrapper = styled.div`
   justify-content: center;
   flex-direction: column;
 `;
+export const ProfileHeaderInner = styled.div`
+  height: 100%;
+  width: 100%;
+`;
 export const ProfileNameWrapper = styled.div`
   display: flex;
+
   flex-direction: column;
   height: 50px;
 `;
@@ -74,13 +79,16 @@ export const ProfileIntroduce = styled.div`
   margin-bottom: 20px;
   font-size: 16px;
 `;
-export const ResumeDetailWrapper = styled(motion.div)`
+export const ResumeDetailWrapper = styled(motion.div)<any>`
+  // margin-top: ${(props) => props.profileHeight};
+  margin-top: 80vh;
+
   border-style: solid;
   border-width: 0px;
   border-radius: 16px;
   background-color: white;
   z-index: 99;
-  position: fixed;
+  position: relative;
 `;
 
 export const ResumeModalWrapper = styled.div`
@@ -106,9 +114,8 @@ export const ResumeDetailInner = styled.div`
   position: relative;
   padding: 0px 20px;
   font-family: 'Apple SD Gothic Neo', sans-serif;
-  overflow-y: scroll;
-  height: calc(100vh - 203px);
   padding-top: 27px;
+  overflow-y: auto;
 `;
 export const ResumeSubTitle = styled.div`
   font-size: 16px;
@@ -141,6 +148,7 @@ export const ResumeImageWrapper = styled.div`
   margin-top: 12px;
   display: flex;
   flex-direction: column;
+  justify-content: center;
 `;
 export const ResumeSnsImage = styled.img`
   width: 320px;

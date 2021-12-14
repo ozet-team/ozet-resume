@@ -1,3 +1,11 @@
 .Profile{
     font-family: 'Apple SD Gothic Neo', sans-serif !important; ;
 }
+.imageClass{
+    min-width: 50px;
+    height: 50px;
+    transition: all linear 5s;
+}
+.active{
+    overflow-y: hidden;
+}

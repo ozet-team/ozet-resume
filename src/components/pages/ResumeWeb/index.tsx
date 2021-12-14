@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import {
   ProfileCategory,
+  ProfileHeaderInner,
   ProfileHeaderWrapper,
   ProfileImage,
   ProfileImageWrapper,
@@ -40,6 +41,7 @@ import InstagramTestImage from '../../../img/InstagramTestImage.svg';
 
 import './Resume.css';
 import { imgAnimate, profileAnimate } from '../../common/Variants/Variants';
+import { auto } from 'framer-motion/types/render/dom/value-types/type-auto';
 const ResumeWeb = () => {
   const tabs = [
     { label: '경력', id: 'career' },
@@ -49,6 +51,9 @@ const ResumeWeb = () => {
     { label: '자기소개', id: 'introduce' },
     { label: 'SNS', id: 'sns' },
   ];
+  const profileName = useRef<HTMLDivElement>(null);
+  const resumeHeight = useRef<HTMLDivElement>(null);
+  const profileImage = useRef<HTMLDivElement>(null);
   const profileDetail = useRef<HTMLDivElement>(null);
   const introduce = useRef<HTMLDivElement>(null);
   const career = useRef<HTMLDivElement>(null);
@@ -58,18 +63,39 @@ const ResumeWeb = () => {
   const sns = useRef<HTMLDivElement>(null);
   const lastElement = useRef<HTMLDivElement>(null);
   const [selectedTab, setSelectedTab] = useState('introduce');
-  const [profileHeight, setProfileHeight] = useState<number | undefined>(0);
-  const [modalHeight, setModalHeight] = useState<number | undefined>(0);
-  const [tabHeight, setTabHeight] = useState<number | undefined>(0);
+  const [profileHeight, setProfileHeight] = useState<number>(0);
+  const [scrollY, setScrollY] = useState<number>(0);
+  const [scrollActive, setScrollActive] = useState<boolean>(false);
+
   // const [profileData, setProfileData] = useState<typeof ResumeData>();
   const [toggle, setToggle] = useState<boolean>(false);
-
   const id = useParams<string>();
-  // const getResumeData = async () => {
-  //   const { data }: any = await Api.getResume(id);
-  //   setProfileData(data);
-  // };
 
+  const scrollHandle = () => {
+    if (scrollY > 100) {
+      setScrollY(window.pageYOffset);
+      setScrollActive(true);
+    } else {
+      setScrollY(window.pageYOffset);
+      setScrollActive(false);
+    }
+  };
+  useEffect(() => {
+    function scrollListener() {
+      window.addEventListener('scroll', scrollHandle);
+    }
+    scrollListener();
+    return () => {
+      window.removeEventListener('scroll', scrollHandle);
+    };
+  });
+  // const getResumeData = async () => {
+  //   if(profileName.current.Y)
+  // }
+  // const checkResumeHeight = () => {
+  //   if ((resumeHeight.current?.scrollTop as number) > 10) {
+  //   }
+  // };
   const checkID = async (key: string) => {
     switch (key) {
       case 'introduce':
@@ -86,12 +112,16 @@ const ResumeWeb = () => {
         return sns.current?.offsetTop;
     }
   };
-  console.log(modalHeight);
+  // useEffect(() => {
+  //   checkResumeHeight();
+  // });
+
   useEffect(() => {
-    setProfileHeight(lastElement.current?.getBoundingClientRect().bottom);
-    setModalHeight(profileDetail.current?.clientHeight as number);
+    setProfileHeight(
+      lastElement.current?.getBoundingClientRect().bottom as number,
+    );
     // getResumeData();
-  }, [selectedTab]);
+  }, []);
 
   const modalAnimate = {
     unActive: {
@@ -110,85 +140,6 @@ const ResumeWeb = () => {
   };
   return (
     <ResumeWapper>
-      <ResumeDetailWrapper
-        variants={modalAnimate}
-        animate={toggle ? 'active' : 'unActive'}
-        transition={{ duration: 0.5 }}
-        onClick={() => {
-          setToggle(true);
-        }}
-      >
-        <ResumeModalWrapper>
-          <ResumeModalInner>
-            <ResumeCategoryBar
-              tabs={tabs}
-              selectedTab={selectedTab}
-              setSelectedTab={setSelectedTab}
-              tabHeight={tabHeight}
-              checkID={checkID}
-              profileDetail={profileDetail}
-            />
-            <ResumeDetailInner ref={profileDetail}>
-              <ResumeSubTitle ref={career}>
-                경력 {profileData?.workPeriod}
-              </ResumeSubTitle>
-              <ResumeBr />
-              {profileData?.workDetail.map((data) => (
-                <>
-                  <ResumeDetailTitle>{data.spaceName}</ResumeDetailTitle>
-                  <ResumeDetailText>{data.workInformation}</ResumeDetailText>
-                  <ResumeTerm>{data.workPeriod}</ResumeTerm>
-                </>
-              ))}
-              <ResumeMargin />
-              <ResumeSubTitle ref={certificate}>자격증</ResumeSubTitle>
-              <ResumeBr />
-              {profileData?.certificate.map((data) => (
-                <>
-                  <ResumeDetailTitle>{data.name}</ResumeDetailTitle>
-                  <ResumeTerm>{data.date}</ResumeTerm>
-                </>
-              ))}
-              <ResumeMargin />
-              <ResumeSubTitle ref={academic}>학력</ResumeSubTitle>
-              <ResumeBr />
-              {profileData?.academic.map((data) => (
-                <>
-                  <ResumeDetailTitle>{data.name}</ResumeDetailTitle>
-                  <ResumeTerm>{data.period}</ResumeTerm>
-                </>
-              ))}
-              <ResumeMargin />
-              <ResumeSubTitle ref={military}>병역</ResumeSubTitle>
-              <ResumeBr />
-              <ResumeDetailTitle>
-                {profileData?.military.category}
-              </ResumeDetailTitle>
-              <ResumeDetailText>
-                {profileData?.military.period}
-              </ResumeDetailText>
-              <ResumeTerm>{profileData?.military.detail}</ResumeTerm>
-              <ResumeMargin />
-              <ResumeSubTitle ref={introduce}>자기소개 </ResumeSubTitle>
-              <ResumeBr />
-              <ResumeDetailText>{profileData?.introduce}</ResumeDetailText>
-              <ResumeMargin />
-              <ResumeSnsLink ref={sns}>
-                <ResumeInstagramLogo src={InstagramImage} />
-                <ResumeSubTitle>{profileData?.snsLink}</ResumeSubTitle>
-              </ResumeSnsLink>
-              <ResumeImageWrapper>
-                <ResumeSnsImage src={InstagramTestImage} />
-                <ResumeSnsImage src={InstagramTestImage} />
-                <ResumeSnsImage src={InstagramTestImage} />
-                <ResumeSnsImage src={InstagramTestImage} />
-                <ResumeSnsImage src={InstagramTestImage} />
-              </ResumeImageWrapper>
-              <ResumeMargin />
-            </ResumeDetailInner>
-          </ResumeModalInner>
-        </ResumeModalWrapper>
-      </ResumeDetailWrapper>
       <ProfileWrapper
         className={'Profile'}
         onClick={() => {
@@ -196,22 +147,22 @@ const ResumeWeb = () => {
         }}
       >
         <ProfileHeaderWrapper>
-          <ProfileNameWrapper>
-            <ProfileNickname>{profileData?.nickname}</ProfileNickname>
-            <ProfileName>{profileData?.name}</ProfileName>
-          </ProfileNameWrapper>
-          <ProfileImageWrapper>
-            <ProfileImage
-              src={exProfileImg}
-              variants={imgAnimate}
-              animate={toggle ? 'active' : 'unActive'}
-              transition={{ duration: 0.5 }}
-            />
-          </ProfileImageWrapper>
+          <ProfileHeaderInner>
+            <ProfileNameWrapper>
+              <ProfileNickname>{profileData?.nickname}</ProfileNickname>
+              <ProfileName>{profileData?.name}</ProfileName>
+            </ProfileNameWrapper>
+            <ProfileImageWrapper
+              ref={profileImage}
+              className={scrollActive ? 'imageClass' : ''}
+            >
+              <ProfileImage src={exProfileImg} />
+            </ProfileImageWrapper>
+          </ProfileHeaderInner>
         </ProfileHeaderWrapper>
         <ProfileTextWrapper
+          ref={profileName}
           variants={profileAnimate}
-          animate={toggle ? 'active' : 'unActive'}
           transition={{ duration: 0.3 }}
         >
           <StyledTable>
@@ -250,6 +201,77 @@ const ResumeWeb = () => {
           <div ref={lastElement} />
         </ProfileTextWrapper>
       </ProfileWrapper>
+      <ResumeDetailWrapper
+        profileHeight={profileHeight}
+        variants={modalAnimate}
+        transition={{ duration: 0.5 }}
+        onClick={() => {
+          setToggle(true);
+        }}
+      >
+        <ResumeCategoryBar
+          tabs={tabs}
+          selectedTab={selectedTab}
+          setSelectedTab={setSelectedTab}
+          checkID={checkID}
+        />
+        <ResumeDetailInner ref={profileDetail}>
+          <ResumeSubTitle ref={career}>
+            경력 {profileData?.workPeriod}
+          </ResumeSubTitle>
+          <ResumeBr />
+          {profileData?.workDetail.map((data) => (
+            <>
+              <ResumeDetailTitle>{data.spaceName}</ResumeDetailTitle>
+              <ResumeDetailText>{data.workInformation}</ResumeDetailText>
+              <ResumeTerm>{data.workPeriod}</ResumeTerm>
+            </>
+          ))}
+          <ResumeMargin />
+          <ResumeSubTitle ref={certificate}>자격증</ResumeSubTitle>
+          <ResumeBr />
+          {profileData?.certificate.map((data) => (
+            <>
+              <ResumeDetailTitle>{data.name}</ResumeDetailTitle>
+              <ResumeTerm>{data.date}</ResumeTerm>
+            </>
+          ))}
+          <ResumeMargin />
+          <ResumeSubTitle ref={academic}>학력</ResumeSubTitle>
+          <ResumeBr />
+          {profileData?.academic.map((data) => (
+            <>
+              <ResumeDetailTitle>{data.name}</ResumeDetailTitle>
+              <ResumeTerm>{data.period}</ResumeTerm>
+            </>
+          ))}
+          <ResumeMargin />
+          <ResumeSubTitle ref={military}>병역</ResumeSubTitle>
+          <ResumeBr />
+          <ResumeDetailTitle>
+            {profileData?.military.category}
+          </ResumeDetailTitle>
+          <ResumeDetailText>{profileData?.military.period}</ResumeDetailText>
+          <ResumeTerm>{profileData?.military.detail}</ResumeTerm>
+          <ResumeMargin />
+          <ResumeSubTitle ref={introduce}>자기소개 </ResumeSubTitle>
+          <ResumeBr />
+          <ResumeDetailText>{profileData?.introduce}</ResumeDetailText>
+          <ResumeMargin />
+          <ResumeSnsLink ref={sns}>
+            <ResumeInstagramLogo src={InstagramImage} />
+            <ResumeSubTitle>{profileData?.snsLink}</ResumeSubTitle>
+          </ResumeSnsLink>
+          <ResumeImageWrapper>
+            <ResumeSnsImage src={InstagramTestImage} />
+            <ResumeSnsImage src={InstagramTestImage} />
+            <ResumeSnsImage src={InstagramTestImage} />
+            <ResumeSnsImage src={InstagramTestImage} />
+            <ResumeSnsImage src={InstagramTestImage} />
+          </ResumeImageWrapper>
+          <ResumeMargin />
+        </ResumeDetailInner>
+      </ResumeDetailWrapper>
     </ResumeWapper>
   );
 };
