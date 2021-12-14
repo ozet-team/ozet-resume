@@ -35,7 +35,7 @@ import './Resume.css';
 import ResumeCategoryBar from 'src/components/common/ResumeCategoryBar';
 import { useParams } from 'react-router-dom';
 import { ResumeData as profileData } from '../../../api/ResumeData';
-import InstagramImage from '../../../img/InstagramLogo.svg';
+import InstagramImage from '../../../img/Instagram Logo.svg';
 import InstagramTestImage from '../../../img/InstagramTestImage.svg';
 
 import './Resume.css';
@@ -95,7 +95,8 @@ const ResumeWeb = () => {
 
   const modalAnimate = {
     unActive: {
-      top: profileHeight,
+      // top: profileHeight,
+      bottom: -750,
       transition: {
         duration: 0.5,
       },

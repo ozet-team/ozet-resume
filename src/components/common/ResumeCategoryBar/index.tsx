@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import React from 'react';
-import { StyledLi, StyledUl } from './styled';
+import { StyledLi, StyledNav, StyledUl } from './styled';
 import './ResumeCategoryBar.css';
 
 interface Props {
@@ -21,7 +21,7 @@ const ResumeCategoryBar = ({
 }: Props) => {
   return (
     <>
-      <nav>
+      <StyledNav>
         <StyledUl>
           {tabs.map((item) => (
             <StyledLi
@@ -44,7 +44,7 @@ const ResumeCategoryBar = ({
             </StyledLi>
           ))}
         </StyledUl>
-      </nav>
+      </StyledNav>
     </>
   );
 };

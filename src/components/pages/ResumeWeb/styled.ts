@@ -9,12 +9,12 @@ export const ProfileWrapper = styled.div`
   padding: 0px 20px;
   display: flex;
   flex-direction: column;
-  min-height: 148px;
   top: 0px;
   right: 0px;
   left: 0px;
+  bottom: 0px;
   z-index: 0;
-  position: relative;
+  position: fixed;
 `;
 export const ProfileImage = styled(motion.img)`
   height: 180px;
@@ -75,16 +75,20 @@ export const ProfileIntroduce = styled.div`
   font-size: 16px;
 `;
 export const ResumeDetailWrapper = styled(motion.div)`
-  border-style: solid;
-  border-width: 0px;
-  border-radius: 16px;
   background-color: white;
   z-index: 99;
+  border-width: 0px;
+  border-radius: 16px;
   position: fixed;
+  height: 100vh;
 `;
 
 export const ResumeModalWrapper = styled.div`
   display: block;
+  border-style: solid;
+  border-width: 0px;
+  border-radius: 16px;
+  position: relative;
 `;
 export const ResumeModalInner = styled.div`
   overflow: initial;
@@ -107,12 +111,11 @@ export const ResumeDetailInner = styled.div`
   padding: 0px 20px;
   font-family: 'Apple SD Gothic Neo', sans-serif;
   overflow-y: scroll;
-  height: calc(100vh - 203px);
+  height: calc(100vh - 150px);
   padding-top: 27px;
 `;
 export const ResumeSubTitle = styled.div`
-  font-size: 16px;
-  font-weight: 600;
+  font-size: 13px;
   border-radius: 8px;
   border-style: solid;
   border-width: 0px;
@@ -121,8 +124,8 @@ export const ResumeSubTitle = styled.div`
   flex-direction: row;
 `;
 export const ResumeInstagramLogo = styled.img`
-  height: 26px;
-  width: 26px;
+  height: 24px;
+  width: 24px;
   margin-right: 11px;
 `;
 export const ResumeDetailTitle = styled.div`

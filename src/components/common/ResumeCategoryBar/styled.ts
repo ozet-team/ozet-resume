@@ -1,6 +1,12 @@
 import styled from 'styled-components';
 
+export const StyledNav = styled.nav`
+  border-style: solid;
+  border-width: 0px;
+  border-radius: 16px;
+`;
 export const StyledUl = styled.ul`
+  margin-top: 24px;
   display: flex;
   padding-left: 10px;
 `;
@@ -8,7 +14,6 @@ export const StyledLi = styled.li`
   background: white;
   cursor: pointer;
   height: 24px;
-  padding-top: 24px;
   margin: 0px 10px;
   padding-bottom: 7px;
   display: flex;
