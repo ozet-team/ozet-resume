@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import {
+  ImageListWrapper,
   ProfileCategory,
   ProfileHeaderWrapper,
   ProfileImage,
@@ -13,6 +14,7 @@ import {
   ProfileWorkRow,
   ProfileWrapper,
   ResumeBr,
+  ResumeCategoryBarWrapper,
   ResumeColumnBar,
   ResumeDetailInner,
   ResumeDetailText,
@@ -23,6 +25,7 @@ import {
   ResumeMargin,
   ResumeModalInner,
   ResumeModalWrapper,
+  ResumeSmallMargin,
   ResumeSnsImage,
   ResumeSnsLink,
   ResumeSubTitle,
@@ -35,7 +38,7 @@ import './Resume.css';
 import ResumeCategoryBar from 'src/components/common/ResumeCategoryBar';
 import { useParams } from 'react-router-dom';
 import { ResumeData as profileData } from '../../../api/ResumeData';
-import InstagramImage from '../../../img/Instagram Logo.svg';
+import InstagramImage from '../../../img/Instagram_logo.png';
 import InstagramTestImage from '../../../img/InstagramTestImage.svg';
 
 import './Resume.css';
@@ -95,8 +98,8 @@ const ResumeWeb = () => {
 
   const modalAnimate = {
     unActive: {
-      // top: profileHeight,
-      bottom: -750,
+      top: profileHeight,
+      // top: window.innerHeight - 60,
       transition: {
         duration: 0.5,
       },
@@ -121,24 +124,29 @@ const ResumeWeb = () => {
       >
         <ResumeModalWrapper>
           <ResumeModalInner>
-            <ResumeCategoryBar
-              tabs={tabs}
-              selectedTab={selectedTab}
-              setSelectedTab={setSelectedTab}
-              tabHeight={tabHeight}
-              checkID={checkID}
-              profileDetail={profileDetail}
-            />
+            <ResumeCategoryBarWrapper>
+              <ResumeCategoryBar
+                tabs={tabs}
+                selectedTab={selectedTab}
+                setSelectedTab={setSelectedTab}
+                tabHeight={tabHeight}
+                checkID={checkID}
+                profileDetail={profileDetail}
+              />
+            </ResumeCategoryBarWrapper>
             <ResumeDetailInner ref={profileDetail}>
               <ResumeSubTitle ref={career}>
-                경력 {profileData?.workPeriod}
+                경력 ({profileData?.workPeriod})
               </ResumeSubTitle>
               <ResumeBr />
               {profileData?.workDetail.map((data) => (
                 <>
                   <ResumeDetailTitle>{data.spaceName}</ResumeDetailTitle>
-                  <ResumeDetailText>{data.workInformation}</ResumeDetailText>
+                  <ResumeSmallMargin />
                   <ResumeTerm>{data.workPeriod}</ResumeTerm>
+                  <ResumeSmallMargin />
+                  <ResumeDetailText>{data.workInformation}</ResumeDetailText>
+                  <ResumeMargin />
                 </>
               ))}
               <ResumeMargin />
@@ -147,7 +155,11 @@ const ResumeWeb = () => {
               {profileData?.certificate.map((data) => (
                 <>
                   <ResumeDetailTitle>{data.name}</ResumeDetailTitle>
+                  <ResumeSmallMargin />
                   <ResumeTerm>{data.date}</ResumeTerm>
+                  <ResumeSmallMargin />
+                  <ResumeDetailText>기관</ResumeDetailText>
+                  <ResumeMargin />
                 </>
               ))}
               <ResumeMargin />
@@ -156,7 +168,9 @@ const ResumeWeb = () => {
               {profileData?.academic.map((data) => (
                 <>
                   <ResumeDetailTitle>{data.name}</ResumeDetailTitle>
+                  <ResumeSmallMargin />
                   <ResumeTerm>{data.period}</ResumeTerm>
+                  <ResumeMargin />
                 </>
               ))}
               <ResumeMargin />
@@ -165,26 +179,45 @@ const ResumeWeb = () => {
               <ResumeDetailTitle>
                 {profileData?.military.category}
               </ResumeDetailTitle>
+              <ResumeSmallMargin />
+              <ResumeTerm>{profileData?.military.period}</ResumeTerm>
+              <ResumeSmallMargin />
               <ResumeDetailText>
-                {profileData?.military.period}
+                {profileData?.military.detail}
               </ResumeDetailText>
-              <ResumeTerm>{profileData?.military.detail}</ResumeTerm>
               <ResumeMargin />
               <ResumeSubTitle ref={introduce}>자기소개 </ResumeSubTitle>
               <ResumeBr />
               <ResumeDetailText>{profileData?.introduce}</ResumeDetailText>
               <ResumeMargin />
-              <ResumeSnsLink ref={sns}>
+              <ResumeSubTitle ref={sns}>SNS </ResumeSubTitle>
+              <ResumeBr />
+              <ResumeSnsLink>
                 <ResumeInstagramLogo src={InstagramImage} />
-                <ResumeSubTitle>{profileData?.snsLink}</ResumeSubTitle>
+                <ResumeDetailText>{profileData?.snsLink}</ResumeDetailText>
               </ResumeSnsLink>
-              <ResumeImageWrapper>
-                <ResumeSnsImage src={InstagramTestImage} />
-                <ResumeSnsImage src={InstagramTestImage} />
-                <ResumeSnsImage src={InstagramTestImage} />
-                <ResumeSnsImage src={InstagramTestImage} />
-                <ResumeSnsImage src={InstagramTestImage} />
-              </ResumeImageWrapper>
+              <ImageListWrapper>
+                <ResumeImageWrapper>
+                  <ResumeSnsImage src={InstagramTestImage} />
+                </ResumeImageWrapper>
+                <ResumeImageWrapper>
+                  <ResumeSnsImage src={InstagramTestImage} />
+                </ResumeImageWrapper>
+                <ResumeImageWrapper>
+                  <ResumeSnsImage src={InstagramTestImage} />
+                </ResumeImageWrapper>
+                <ResumeImageWrapper>
+                  <ResumeSnsImage src={InstagramTestImage} />
+                </ResumeImageWrapper>
+                <ResumeImageWrapper>
+                  <ResumeSnsImage src={InstagramTestImage} />
+                </ResumeImageWrapper>
+                <ResumeImageWrapper>
+                  <ResumeSnsImage src={InstagramTestImage} />
+                </ResumeImageWrapper>
+              </ImageListWrapper>
+              <ResumeMargin />
+              <ResumeMargin />
               <ResumeMargin />
             </ResumeDetailInner>
           </ResumeModalInner>

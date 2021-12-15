@@ -46,14 +46,15 @@ export const StyledTable = styled(motion.div)`
 `;
 export const ProfileCategory = styled.td`
   min-width: 50px;
-  font-size: 14px;
-  font-weight: 600;
+  font-size: 13px;
+  font-weight: 700;
   padding-bottom: 8px;
+  color: #666666;
 `;
 export const ProfileText = styled.td`
   font-size: 13px;
   padding-left: 12px;
-  padding-bottom: 8px;
+  padding-bottom: 9px;
   width: 260px;
 `;
 export const ProfileTableRow = styled.tr`
@@ -81,6 +82,7 @@ export const ResumeDetailWrapper = styled(motion.div)`
   border-radius: 16px;
   position: fixed;
   height: 100vh;
+  width: 100vw;
 `;
 
 export const ResumeModalWrapper = styled.div`
@@ -106,6 +108,9 @@ export const ResumeColumnBar = styled.div`
   background: black;
 `;
 
+export const ResumeCategoryBarWrapper = styled.div`
+  padding: 0px 10px;
+`;
 export const ResumeDetailInner = styled.div`
   position: relative;
   padding: 0px 20px;
@@ -115,10 +120,9 @@ export const ResumeDetailInner = styled.div`
   padding-top: 27px;
 `;
 export const ResumeSubTitle = styled.div`
-  font-size: 13px;
-  border-radius: 8px;
-  border-style: solid;
-  border-width: 0px;
+  margin-top: 12px;
+  font-size: 16px;
+  font-weight: 600;
   display: flex;
   align-items: center;
   flex-direction: row;
@@ -126,40 +130,45 @@ export const ResumeSubTitle = styled.div`
 export const ResumeInstagramLogo = styled.img`
   height: 24px;
   width: 24px;
-  margin-right: 11px;
+  margin-right: 8px;
+  border-radius: 6px;
 `;
 export const ResumeDetailTitle = styled.div`
-  margin-bottom: 2px;
   font-size: 14px;
   font-weight: 600;
 `;
 export const ResumeSnsLink = styled.div`
-  margin-bottom: 12px;
   font-size: 14px;
   display: flex;
   align-items: center;
   flex-direction: row;
+  text-align: center;
+  margin-bottom: 9px;
 `;
 export const ResumeImageWrapper = styled.div`
-  margin-top: 12px;
+  width: 100px;
   display: flex;
-  flex-direction: column;
+  justify-content: center;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+`;
+export const ImageListWrapper = styled.section`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
 `;
 export const ResumeSnsImage = styled.img`
-  width: 320px;
-  height: 320px;
-  margin-bottom: 20px;
   border-radius: 12px;
-  border-width: 0px;
-  border-style: solid;
+  width: 100%;
+  display: flex;
+  justify-content: center;
 `;
 
 export const ResumeDetailText = styled.div`
-  margin-bottom: 6px;
   font-size: 13px;
+  font-weight: 400;
 `;
 export const ResumeTerm = styled.div`
-  margin-bottom: 10px;
   font-size: 13px;
   color: #828282;
 `;
@@ -167,9 +176,15 @@ export const ResumeBr = styled.div`
   height: 1px;
   background: black;
   opacity: 10%;
-  margin-top: 5px;
+  margin-top: 8px;
   margin-bottom: 10px;
 `;
+export const ResumeLargeMargin = styled.div`
+  height: 24px;
+`;
 export const ResumeMargin = styled.div`
-  height: 32px;
+  height: 12px;
+`;
+export const ResumeSmallMargin = styled.div`
+  height: 2px;
 `;

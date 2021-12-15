@@ -8,7 +8,8 @@ export const StyledNav = styled.nav`
 export const StyledUl = styled.ul`
   margin-top: 24px;
   display: flex;
-  padding-left: 10px;
+  padding-left: 0px;
+  justify-content: space-around;
 `;
 export const StyledLi = styled.li`
   background: white;
