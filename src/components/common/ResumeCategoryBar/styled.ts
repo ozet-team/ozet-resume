@@ -6,10 +6,16 @@ export const StyledNav = styled.nav`
   border-radius: 16px;
 `;
 export const StyledUl = styled.ul`
-  margin-top: 24px;
+  margin-top: 22px;
   display: flex;
   padding-left: 0px;
   justify-content: space-around;
+  @media (min-width: 500px) {
+    width: 445px;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 38px;
+  }
 `;
 export const StyledLi = styled.li`
   background: white;
@@ -27,4 +33,7 @@ export const StyledLi = styled.li`
   color: black;
   opacity: 30%;
   -webkit-tap-highlight-color: transparent;
+  @media (min-width: 500px) {
+    font-size: 16px;
+  }
 `;

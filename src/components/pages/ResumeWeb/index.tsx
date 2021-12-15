@@ -1,7 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react';
 import {
   ImageListWrapper,
+  PcHeaderWrapper,
+  PcProfileImage,
+  PcTableWrapper,
   ProfileCategory,
+  ProfileHeaderInner,
   ProfileHeaderWrapper,
   ProfileImage,
   ProfileImageWrapper,
@@ -21,6 +25,7 @@ import {
   ResumeDetailTitle,
   ResumeDetailWrapper,
   ResumeImageWrapper,
+  ResumeInnerWrapper,
   ResumeInstagramLogo,
   ResumeMargin,
   ResumeModalInner,
@@ -60,7 +65,7 @@ const ResumeWeb = () => {
   const military = useRef<HTMLDivElement>(null);
   const sns = useRef<HTMLDivElement>(null);
   const lastElement = useRef<HTMLDivElement>(null);
-  const [selectedTab, setSelectedTab] = useState('introduce');
+  const [selectedTab, setSelectedTab] = useState('career');
   const [profileHeight, setProfileHeight] = useState<number | undefined>(0);
   const [modalHeight, setModalHeight] = useState<number | undefined>(0);
   const [tabHeight, setTabHeight] = useState<number | undefined>(0);
@@ -95,23 +100,27 @@ const ResumeWeb = () => {
     setModalHeight(profileDetail.current?.clientHeight as number);
     // getResumeData();
   }, [selectedTab]);
+  let modalAnimate = {};
+  const isMobile = window.innerWidth < 500;
+  if (isMobile) {
+    modalAnimate = {
+      unActive: {
+        top: profileHeight,
+        // top: window.innerHeight - 60,
+        transition: {
+          duration: 0.5,
+        },
+      },
+      active: {
+        opacity: 1,
+        top: 104,
+        transition: {
+          duration: 0.5,
+        },
+      },
+    };
+  }
 
-  const modalAnimate = {
-    unActive: {
-      top: profileHeight,
-      // top: window.innerHeight - 60,
-      transition: {
-        duration: 0.5,
-      },
-    },
-    active: {
-      opacity: 1,
-      top: 104,
-      transition: {
-        duration: 0.5,
-      },
-    },
-  };
   return (
     <ResumeWapper>
       <ResumeDetailWrapper
@@ -135,90 +144,93 @@ const ResumeWeb = () => {
               />
             </ResumeCategoryBarWrapper>
             <ResumeDetailInner ref={profileDetail}>
-              <ResumeSubTitle ref={career}>
-                경력 ({profileData?.workPeriod})
-              </ResumeSubTitle>
-              <ResumeBr />
-              {profileData?.workDetail.map((data) => (
-                <>
-                  <ResumeDetailTitle>{data.spaceName}</ResumeDetailTitle>
-                  <ResumeSmallMargin />
-                  <ResumeTerm>{data.workPeriod}</ResumeTerm>
-                  <ResumeSmallMargin />
-                  <ResumeDetailText>{data.workInformation}</ResumeDetailText>
-                  <ResumeMargin />
-                </>
-              ))}
-              <ResumeMargin />
-              <ResumeSubTitle ref={certificate}>자격증</ResumeSubTitle>
-              <ResumeBr />
-              {profileData?.certificate.map((data) => (
-                <>
-                  <ResumeDetailTitle>{data.name}</ResumeDetailTitle>
-                  <ResumeSmallMargin />
-                  <ResumeTerm>{data.date}</ResumeTerm>
-                  <ResumeSmallMargin />
-                  <ResumeDetailText>기관</ResumeDetailText>
-                  <ResumeMargin />
-                </>
-              ))}
-              <ResumeMargin />
-              <ResumeSubTitle ref={academic}>학력</ResumeSubTitle>
-              <ResumeBr />
-              {profileData?.academic.map((data) => (
-                <>
-                  <ResumeDetailTitle>{data.name}</ResumeDetailTitle>
-                  <ResumeSmallMargin />
-                  <ResumeTerm>{data.period}</ResumeTerm>
-                  <ResumeMargin />
-                </>
-              ))}
-              <ResumeMargin />
-              <ResumeSubTitle ref={military}>병역</ResumeSubTitle>
-              <ResumeBr />
-              <ResumeDetailTitle>
-                {profileData?.military.category}
-              </ResumeDetailTitle>
-              <ResumeSmallMargin />
-              <ResumeTerm>{profileData?.military.period}</ResumeTerm>
-              <ResumeSmallMargin />
-              <ResumeDetailText>
-                {profileData?.military.detail}
-              </ResumeDetailText>
-              <ResumeMargin />
-              <ResumeSubTitle ref={introduce}>자기소개 </ResumeSubTitle>
-              <ResumeBr />
-              <ResumeDetailText>{profileData?.introduce}</ResumeDetailText>
-              <ResumeMargin />
-              <ResumeSubTitle ref={sns}>SNS </ResumeSubTitle>
-              <ResumeBr />
-              <ResumeSnsLink>
-                <ResumeInstagramLogo src={InstagramImage} />
-                <ResumeDetailText>{profileData?.snsLink}</ResumeDetailText>
-              </ResumeSnsLink>
-              <ImageListWrapper>
-                <ResumeImageWrapper>
-                  <ResumeSnsImage src={InstagramTestImage} />
-                </ResumeImageWrapper>
-                <ResumeImageWrapper>
-                  <ResumeSnsImage src={InstagramTestImage} />
-                </ResumeImageWrapper>
-                <ResumeImageWrapper>
-                  <ResumeSnsImage src={InstagramTestImage} />
-                </ResumeImageWrapper>
-                <ResumeImageWrapper>
-                  <ResumeSnsImage src={InstagramTestImage} />
-                </ResumeImageWrapper>
-                <ResumeImageWrapper>
-                  <ResumeSnsImage src={InstagramTestImage} />
-                </ResumeImageWrapper>
-                <ResumeImageWrapper>
-                  <ResumeSnsImage src={InstagramTestImage} />
-                </ResumeImageWrapper>
-              </ImageListWrapper>
-              <ResumeMargin />
-              <ResumeMargin />
-              <ResumeMargin />
+              <ResumeInnerWrapper>
+                <ResumeMargin ref={career} />
+                <ResumeSubTitle>
+                  경력 ({profileData?.workPeriod})
+                </ResumeSubTitle>
+                <ResumeBr />
+                {profileData?.workDetail.map((data) => (
+                  <>
+                    <ResumeDetailTitle>{data.spaceName}</ResumeDetailTitle>
+                    <ResumeSmallMargin />
+                    <ResumeTerm>{data.workPeriod}</ResumeTerm>
+                    <ResumeSmallMargin />
+                    <ResumeDetailText>{data.workInformation}</ResumeDetailText>
+                    <ResumeMargin />
+                  </>
+                ))}
+                <ResumeMargin ref={certificate} />
+                <ResumeSubTitle>자격증</ResumeSubTitle>
+                <ResumeBr />
+                {profileData?.certificate.map((data) => (
+                  <>
+                    <ResumeDetailTitle>{data.name}</ResumeDetailTitle>
+                    <ResumeSmallMargin />
+                    <ResumeTerm>{data.date}</ResumeTerm>
+                    <ResumeSmallMargin />
+                    <ResumeDetailText>기관</ResumeDetailText>
+                    <ResumeMargin />
+                  </>
+                ))}
+                <ResumeMargin ref={academic} />
+                <ResumeSubTitle>학력</ResumeSubTitle>
+                <ResumeBr />
+                {profileData?.academic.map((data) => (
+                  <>
+                    <ResumeDetailTitle>{data.name}</ResumeDetailTitle>
+                    <ResumeSmallMargin />
+                    <ResumeTerm>{data.period}</ResumeTerm>
+                    <ResumeMargin />
+                  </>
+                ))}
+                <ResumeMargin ref={military} />
+                <ResumeSubTitle>병역</ResumeSubTitle>
+                <ResumeBr />
+                <ResumeDetailTitle>
+                  {profileData?.military.category}
+                </ResumeDetailTitle>
+                <ResumeSmallMargin />
+                <ResumeTerm>{profileData?.military.period}</ResumeTerm>
+                <ResumeSmallMargin />
+                <ResumeDetailText>
+                  {profileData?.military.detail}
+                </ResumeDetailText>
+                <ResumeMargin ref={introduce} />
+                <ResumeSubTitle>자기소개 </ResumeSubTitle>
+                <ResumeBr />
+                <ResumeDetailText>{profileData?.introduce}</ResumeDetailText>
+                <ResumeMargin ref={sns} />
+                <ResumeSubTitle>SNS </ResumeSubTitle>
+                <ResumeBr />
+                <ResumeSnsLink>
+                  <ResumeInstagramLogo src={InstagramImage} />
+                  <ResumeDetailText>{profileData?.snsLink}</ResumeDetailText>
+                </ResumeSnsLink>
+                <ImageListWrapper>
+                  <ResumeImageWrapper>
+                    <ResumeSnsImage src={InstagramTestImage} />
+                  </ResumeImageWrapper>
+                  <ResumeImageWrapper>
+                    <ResumeSnsImage src={InstagramTestImage} />
+                  </ResumeImageWrapper>
+                  <ResumeImageWrapper>
+                    <ResumeSnsImage src={InstagramTestImage} />
+                  </ResumeImageWrapper>
+                  <ResumeImageWrapper>
+                    <ResumeSnsImage src={InstagramTestImage} />
+                  </ResumeImageWrapper>
+                  <ResumeImageWrapper>
+                    <ResumeSnsImage src={InstagramTestImage} />
+                  </ResumeImageWrapper>
+                  <ResumeImageWrapper>
+                    <ResumeSnsImage src={InstagramTestImage} />
+                  </ResumeImageWrapper>
+                </ImageListWrapper>
+                <ResumeMargin />
+                <ResumeMargin />
+                <ResumeMargin />
+              </ResumeInnerWrapper>
             </ResumeDetailInner>
           </ResumeModalInner>
         </ResumeModalWrapper>
@@ -230,18 +242,60 @@ const ResumeWeb = () => {
         }}
       >
         <ProfileHeaderWrapper>
-          <ProfileNameWrapper>
-            <ProfileNickname>{profileData?.nickname}</ProfileNickname>
-            <ProfileName>{profileData?.name}</ProfileName>
-          </ProfileNameWrapper>
-          <ProfileImageWrapper>
-            <ProfileImage
-              src={exProfileImg}
-              variants={imgAnimate}
-              animate={toggle ? 'active' : 'unActive'}
-              transition={{ duration: 0.5 }}
-            />
-          </ProfileImageWrapper>
+          <ProfileHeaderInner>
+            <PcHeaderWrapper>
+              <ProfileNameWrapper>
+                <ProfileNickname>{profileData?.nickname}</ProfileNickname>
+                <ProfileName>{profileData?.name}</ProfileName>
+              </ProfileNameWrapper>
+              <PcTableWrapper>
+                <StyledTable>
+                  <ProfileTableRow>
+                    <ProfileCategory>경력</ProfileCategory>
+                    <ProfileText>
+                      <ProfileWorkRow>
+                        <div>{profileData?.workElement.intern}</div>
+                        <ResumeColumnBar />
+                        <div>{profileData?.workElement.manager}</div>
+                      </ProfileWorkRow>
+                      <ProfileWorkRow>
+                        <div>{profileData?.workElement.designer}</div>
+                        <ResumeColumnBar />
+                        <div>{profileData?.workElement.ledger}</div>
+                      </ProfileWorkRow>
+                    </ProfileText>
+                  </ProfileTableRow>
+                  <ProfileTableRow>
+                    <ProfileCategory>연락처</ProfileCategory>
+                    <ProfileText>{profileData?.phone}</ProfileText>
+                  </ProfileTableRow>
+                </StyledTable>
+                <StyledTable>
+                  <ProfileTableRow>
+                    <ProfileCategory>생년월일</ProfileCategory>
+                    <ProfileText>{profileData?.birth}</ProfileText>
+                  </ProfileTableRow>
+                  <ProfileTableRow>
+                    <ProfileCategory>주소</ProfileCategory>
+                    <ProfileText>{profileData?.address}</ProfileText>
+                  </ProfileTableRow>
+                  <ProfileTableRow>
+                    <ProfileCategory>SNS</ProfileCategory>
+                    <ProfileText>{profileData?.snsLink}</ProfileText>
+                  </ProfileTableRow>
+                </StyledTable>
+              </PcTableWrapper>
+            </PcHeaderWrapper>
+            <PcProfileImage src={exProfileImg} />
+            <ProfileImageWrapper>
+              <ProfileImage
+                src={exProfileImg}
+                variants={imgAnimate}
+                animate={toggle ? 'active' : 'unActive'}
+                transition={{ duration: 0.5 }}
+              />
+            </ProfileImageWrapper>
+          </ProfileHeaderInner>
         </ProfileHeaderWrapper>
         <ProfileTextWrapper
           variants={profileAnimate}
@@ -281,8 +335,8 @@ const ResumeWeb = () => {
               <ProfileText>{profileData?.snsLink}</ProfileText>
             </ProfileTableRow>
           </StyledTable>
-          <div ref={lastElement} />
         </ProfileTextWrapper>
+        <div ref={lastElement} />
       </ProfileWrapper>
     </ResumeWapper>
   );
