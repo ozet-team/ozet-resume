@@ -24,6 +24,7 @@ export const ProfileImage = styled(motion.img)`
 export const PcProfileImage = styled(motion.img)`
   display: none;
   @media (min-width: 500px) {
+    display: flex;
     height: 170px;
     width: 170px;
     margin-left: 18px;
@@ -56,7 +57,7 @@ export const ProfileHeaderWrapper = styled.div`
   @media (min-width: 500px) {
     position: relative;
     width: 100%;
-    max-width: 1140px;
+    max-width: 1000px;
     margin: 0 auto;
     min-width: 320px;
     flex: 1;
@@ -172,7 +173,7 @@ export const ResumeCategoryBarWrapper = styled.div`
   @media (min-width: 500px) {
     position: relative;
     width: 100%;
-    max-width: 1140px;
+    max-width: 1000px;
     margin: 0 auto;
 
     min-width: 320px;
@@ -184,7 +185,7 @@ export const ResumeInnerWrapper = styled.div`
   @media (min-width: 500px) {
     position: relative;
     width: 100%;
-    max-width: 1140px;
+    max-width: 1000px;
     margin: 0 auto;
     min-width: 320px;
     flex: 1;
@@ -241,6 +242,9 @@ export const ResumeImageWrapper = styled.div`
   justify-content: center;
   margin-bottom: 10px;
   box-sizing: border-box;
+  @media (min-width: 500px) {
+    width: 320px;
+  }
 `;
 export const ImageListWrapper = styled.section`
   display: flex;
