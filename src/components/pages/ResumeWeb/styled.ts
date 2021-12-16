@@ -27,7 +27,7 @@ export const PcProfileImage = styled(motion.img)`
     display: flex;
     height: 170px;
     width: 170px;
-    margin-left: 18px;
+    //margin-left: 18px;
   }
 `;
 export const PcHeaderWrapper = styled(motion.div)``;
@@ -50,7 +50,7 @@ export const ProfileHeaderInner = styled.div`
   @media (min-width: 500px) {
     margin-top: 50px;
     flex-direction: row;
-    justify-content: flex-start;
+    justify-content: space-between;
   }
 `;
 export const ProfileHeaderWrapper = styled.div`
@@ -87,29 +87,33 @@ export const StyledTable = styled(motion.div)`
   }
 `;
 export const ProfileCategory = styled.td`
-  min-width: 50px;
   font-size: 13px;
   font-weight: 700;
   padding-bottom: 8px;
   color: #666666;
+  min-width: 50px;
   @media (min-width: 500px) {
     font-size: 16px;
+    min-width: 60px;
   }
 `;
 export const ProfileText = styled.td`
   font-size: 13px;
   padding-left: 12px;
   padding-bottom: 9px;
-  width: 260px;
   @media (min-width: 500px) {
     font-size: 16px;
-    width: 305px;
-    margin-right: 60px;
+    min-width: 305px;
+    padding-bottom: 8px;
+    margin-right: 49px;
   }
 `;
 export const ProfileTableRow = styled.tr`
   display: flex;
   flex-direction: row;
+  @media (min-width: 500px) {
+    width: 376px;
+  }
 `;
 
 export const ProfileNickname = styled.div`

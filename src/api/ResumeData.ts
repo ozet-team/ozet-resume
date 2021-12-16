@@ -13,7 +13,7 @@ export const ResumeData = {
   },
   phone: '010-0000-0000',
   birth: '0000.00.00 ',
-  address: '서울시 00구 00동 0000로 00000',
+  address: '서울시 00구 00동 0000로 000-0',
   workPeriod: '10년 11개월',
   snsLink: '@hair_ozet',
   workDetail: [
