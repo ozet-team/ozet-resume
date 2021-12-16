@@ -270,7 +270,7 @@ const ResumeWeb = () => {
                     <ProfileText>{profileData?.phone}</ProfileText>
                   </ProfileTableRow>
                 </StyledTable>
-                <StyledTable>
+                <StyledTable margin={50}>
                   <ProfileTableRow>
                     <ProfileCategory>생년월일</ProfileCategory>
                     <ProfileText>{profileData?.birth}</ProfileText>

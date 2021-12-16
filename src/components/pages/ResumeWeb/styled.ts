@@ -80,10 +80,11 @@ export const ProfileTextWrapper = styled(motion.div)`
     display: none;
   }
 `;
-export const StyledTable = styled(motion.div)`
+export const StyledTable = styled(motion.div)<any>`
   margin-bottom: 30px;
   @media (min-width: 500px) {
     margin-bottom: 50px;
+    margin-left: ${(props) => props.margin}px;
   }
 `;
 export const ProfileCategory = styled.td`
