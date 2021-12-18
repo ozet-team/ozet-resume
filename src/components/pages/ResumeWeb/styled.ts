@@ -171,6 +171,9 @@ export const ResumeColumnBar = styled.div`
   height: 11px;
   margin: 0 6px;
   background: black;
+  @media (min-width: 500px) {
+    height: 22px;
+  }
 `;
 
 export const ResumeCategoryBarWrapper = styled.div`
@@ -240,12 +243,15 @@ export const ResumeSnsLink = styled.div`
   flex-direction: row;
   text-align: center;
   margin-bottom: 9px;
+  @media (min-width: 500px) {
+    margin-bottom: 16px;
+  }
 `;
 export const ResumeImageWrapper = styled.div`
-  width: 100px;
+  width: 30%;
   display: flex;
   justify-content: center;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
   box-sizing: border-box;
   @media (min-width: 500px) {
     width: 320px;
@@ -255,6 +261,13 @@ export const ImageListWrapper = styled.section`
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+`;
+export const ImageListWrapperLess = styled.section`
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  width: 100%;
+  margin-bottom: 20px;
 `;
 export const ResumeSnsImage = styled.img`
   border-radius: 12px;
@@ -266,7 +279,6 @@ export const ResumeSnsImage = styled.img`
 export const ResumeDetailText = styled.div`
   font-size: 13px;
   font-weight: 400;
-
   @media (min-width: 500px) {
     font-size: 14px;
   }

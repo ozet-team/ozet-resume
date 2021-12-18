@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { sessionList } from './mock';
+import { ResumeData } from './ResumeData';
 
 export class ResumeApi {
   private API: string;
@@ -8,7 +8,7 @@ export class ResumeApi {
   }
 
   getResume = (id: string) => {
-    return axios.get<typeof sessionList>(`${this.API}/resume/detail/${id}`);
+    return axios.get<typeof ResumeData>(`${this.API}/resume/detail/${id}`);
   };
 }
 

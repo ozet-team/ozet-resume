@@ -98,5 +98,5 @@ export const ResumeData = {
     period: '2000.01 ~ 3000.01',
     detail: '해당사항 없음',
   },
-  snsImage: ['', '', ''],
+  snsImage: ['', '', '', ''],
 };
