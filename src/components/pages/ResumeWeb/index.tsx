@@ -42,6 +42,7 @@ import InstagramTestImage from '../../../img/InstagramTestImage.svg';
 import './Resume.css';
 import { imgAnimate, profileAnimate } from '../../common/Variants/Variants';
 import { auto } from 'framer-motion/types/render/dom/value-types/type-auto';
+import { useViewportScroll } from 'framer-motion';
 const ResumeWeb = () => {
   const tabs = [
     { label: '경력', id: 'career' },
@@ -70,7 +71,8 @@ const ResumeWeb = () => {
   // const [profileData, setProfileData] = useState<typeof ResumeData>();
   const [toggle, setToggle] = useState<boolean>(false);
   const id = useParams<string>();
-
+  const { scrollYProgress } = useViewportScroll();
+  console.log(scrollYProgress);
   const scrollHandle = () => {
     if (scrollY > 100) {
       setScrollY(window.pageYOffset);

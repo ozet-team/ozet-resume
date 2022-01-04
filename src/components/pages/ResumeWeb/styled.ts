@@ -82,13 +82,13 @@ export const ProfileIntroduce = styled.div`
 export const ResumeDetailWrapper = styled(motion.div)<any>`
   // margin-top: ${(props) => props.profileHeight};
   margin-top: 80vh;
-
   border-style: solid;
   border-width: 0px;
   border-radius: 16px;
   background-color: white;
   z-index: 99;
-  position: relative;
+  position: sticky;
+  top: 50px;
 `;
 
 export const ResumeModalWrapper = styled.div`
