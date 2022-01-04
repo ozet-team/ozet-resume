@@ -91,13 +91,6 @@ const ResumeWeb = () => {
       window.removeEventListener('scroll', scrollHandle);
     };
   });
-  // const getResumeData = async () => {
-  //   if(profileName.current.Y)
-  // }
-  // const checkResumeHeight = () => {
-  //   if ((resumeHeight.current?.scrollTop as number) > 10) {
-  //   }
-  // };
   const checkID = async (key: string) => {
     switch (key) {
       case 'introduce':
