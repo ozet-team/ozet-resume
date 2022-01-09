@@ -1,13 +1,13 @@
 import useSWR from 'swr';
 import Api from '../index';
 
-async function getResume() {
-  const res = await Api.getResume();
+async function getResume(jwtToken: string) {
+  const res = await Api.getResume(jwtToken);
   return res.data;
 }
 
-export function useGetResume() {
-  const { data, error } = useSWR([`/resume`], getResume);
+export function useGetResume(jwtToken: string) {
+  const { data, error } = useSWR([jwtToken], getResume);
   return {
     data: data && data,
     error,

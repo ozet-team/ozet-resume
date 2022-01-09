@@ -51,8 +51,9 @@ import Api from '../../../api/index';
 import './Resume.css';
 import { imgAnimate, profileAnimate } from '../../common/Variants/Variants';
 import { ResumeData } from 'src/api/ResumeData';
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import { useGetResume } from '../../../api/hooks/useGetResume';
+import { userData } from '../../../api/types';
 const ResumeWeb = () => {
   const tabs = [
     { label: '경력', id: 'career' },
@@ -78,8 +79,14 @@ const ResumeWeb = () => {
 
   const id = useParams<string>();
 
-  const { data }: any = useGetResume();
-  // console.log(data);
+  useEffect(() => {
+    Api.getJWT({ user_id: '9' });
+  }, []);
+  const jwtToken = localStorage.getItem('jwtToken');
+  if (jwtToken) {
+    const { data }: any = useGetResume(jwtToken);
+    console.log(data);
+  }
 
   const checkID = async (key: string) => {
     switch (key) {
@@ -183,14 +190,16 @@ const ResumeWeb = () => {
                     <ResumeMargin ref={academic} />
                     <ResumeSubTitle>학력</ResumeSubTitle>
                     <ResumeBr />
-                    {profileData.academic.map((data: any) => (
-                      <>
-                        <ResumeDetailTitle>{data.name}</ResumeDetailTitle>
-                        <ResumeSmallMargin />
-                        <ResumeTerm>{data.period}</ResumeTerm>
-                        <ResumeMargin />
-                      </>
-                    ))}
+                    {profileData.academic.map(
+                      (data: { name: string; period: string }) => (
+                        <>
+                          <ResumeDetailTitle>{data.name}</ResumeDetailTitle>
+                          <ResumeSmallMargin />
+                          <ResumeTerm>{data.period}</ResumeTerm>
+                          <ResumeMargin />
+                        </>
+                      ),
+                    )}
                     <ResumeMargin ref={military} />
                     <ResumeSubTitle>병역</ResumeSubTitle>
                     <ResumeBr />
@@ -217,11 +226,13 @@ const ResumeWeb = () => {
                     {profileData.snsImage.length > 4 ? (
                       <>
                         <ImageListWrapper>
-                          {profileData.snsImage.map((data: any, id: any) => (
-                            <ResumeImageWrapper key={id}>
-                              <ResumeSnsImage src={InstagramTestImage} />
-                            </ResumeImageWrapper>
-                          ))}
+                          {profileData.snsImage.map(
+                            (data: string, id: number) => (
+                              <ResumeImageWrapper key={id}>
+                                <ResumeSnsImage src={InstagramTestImage} />
+                              </ResumeImageWrapper>
+                            ),
+                          )}
                         </ImageListWrapper>
                       </>
                     ) : (
