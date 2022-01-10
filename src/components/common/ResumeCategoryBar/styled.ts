@@ -11,13 +11,13 @@ export const StyledUl = styled.ul`
   padding-left: 0px;
   justify-content: space-around;
   @media (min-width: 500px) {
-    width: 445px;
+    width: 395px;
     display: flex;
     justify-content: space-between;
     margin-top: 38px;
   }
 `;
-export const StyledLi = styled.li`
+export const StyledLi = styled.li<any>`
   background: white;
   cursor: pointer;
   height: 24px;
@@ -35,5 +35,6 @@ export const StyledLi = styled.li`
   -webkit-tap-highlight-color: transparent;
   @media (min-width: 500px) {
     font-size: 16px;
+    margin-left: ${(props) => props.margin}px;
   }
 `;

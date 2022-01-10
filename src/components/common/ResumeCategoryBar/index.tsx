@@ -23,8 +23,9 @@ const ResumeCategoryBar = ({
     <>
       <StyledNav>
         <StyledUl>
-          {tabs.map((item) => (
+          {tabs.map((item, id) => (
             <StyledLi
+              margin={id > 1 ? 10 : 0}
               key={item.id}
               className={item.id === selectedTab ? 'selected' : ''}
               onClick={() => {

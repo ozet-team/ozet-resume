@@ -54,6 +54,7 @@ import { ResumeData } from 'src/api/ResumeData';
 import axios, { AxiosResponse } from 'axios';
 import { useGetResume } from '../../../api/hooks/useGetResume';
 import { userData } from '../../../api/types';
+import { calculateDuration } from '../../../utils/hooks/calculateDuration';
 const ResumeWeb = () => {
   const tabs = [
     { label: '경력', id: 'career' },
@@ -78,6 +79,8 @@ const ResumeWeb = () => {
   const [toggle, setToggle] = useState<boolean>(false);
 
   const id = useParams<string>();
+
+  calculateDuration('2020-01-09T16:40:57.318Z', '2022-01-30T16:40:57.318Z');
 
   useEffect(() => {
     Api.getJWT({ user_id: '9' });
@@ -164,7 +167,9 @@ const ResumeWeb = () => {
                     <ResumeBr />
                     {profileData.workDetail.map((data: any) => (
                       <>
-                        <ResumeDetailTitle>{data.spaceName}</ResumeDetailTitle>
+                        <ResumeDetailTitle>
+                          {data.spaceName}(기간)
+                        </ResumeDetailTitle>
                         <ResumeSmallMargin />
                         <ResumeTerm>{data.workPeriod}</ResumeTerm>
                         <ResumeSmallMargin />
