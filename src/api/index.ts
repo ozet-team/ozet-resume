@@ -1,7 +1,5 @@
 import axios from 'axios';
-import { ResumeData } from './ResumeData';
-import { userData } from './types';
-import { setAuthorizationToken } from '../utils/hooks/setAuthorizationToken';
+import { resumeDataType, userData } from './types';
 
 export class ResumeApi {
   private API: string;
@@ -10,7 +8,7 @@ export class ResumeApi {
   }
 
   getResume = (jwtToken: string) => {
-    return axios.get<typeof ResumeData>(`${this.API}/member/user/me`, {
+    return axios.get<resumeDataType>(`${this.API}/member/user/me`, {
       headers: {
         Authorization: `JWT ${jwtToken}`,
       },

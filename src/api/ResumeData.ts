@@ -1,102 +1,70 @@
-export const ResumeData = {
-  id: 1,
-  profileImage: '',
-  nickname: 'Ozet',
-  name: '김오젯',
-  introduce:
-    '미용사는 고객에게 적합한 머리 스타일을 연출하고, 기타 고객의머리 손질에 관련된 서비스를 제공하는 일을 담당한다. 고객의얼굴이나 머리형태에 따라 알맞은 머리 모양을 권하고, 고객의 모상태와 형태, 모발의 손상 정도를 확인하여 머리모양을 결정',
-  workElement: {
-    intern: '인턴(스탭) 10년 12개월',
-    manager: '매니저 10년 12개월',
-    designer: '디자이너 10년 12개월',
-    ledger: '원장 10년 12개월',
-  },
-  phone: '010-0000-0000',
-  birth: '0000.00.00 ',
-  address: '서울시 00구 00동 0000로 000-0',
-  workPeriod: '10년 11개월',
-  snsLink: '@hair_ozet',
-  workDetail: [
+export const resumeData = {
+  username: 'ozet_d16066f09b594276bb7d9628e5ea1564',
+  name: '김헤어',
+  email: 'kimhair@hair.com',
+  phoneNumber: '+821057809397',
+  birthday: '1997-07-12',
+  gender: 'MALE',
+  introduce: '내가 바로 개쩌는 헤어 디자이너',
+  profileImage:
+    'https://ozet-bucket.s3.ap-northeast-2.amazonaws.com/media/user/profile/5/20211213_92573506',
+  address: '경기도 성남시 분당구 야탑동 386-4',
+  policyForTermsAgreed: '2021-12-11',
+  policyForPrivacyAgreed: '2021-12-11',
+  snsList: ['', '', '', '', ''],
+  career: [
     {
-      spaceName: '준오헤어 잠실롯데월드점 (1년)',
-      workInformation: '스텝 | 헤어, 커트 어시스턴트 및 막내 스텝 교육',
-      workPeriod: '2000.00 ~ 2000.00',
+      company: '준오헤어 잠실롯데월드점',
+      position: 'STAFF',
+      joinAt: '2019-01-30',
+      quitAt: '2022-05-30',
+      workedOn:
+        '헤어, 커트 어시스턴트 및 막내 스텝 교육 헤어, 커트 어시스턴트 및 막내 스텝 교육헤어, 커트 어시스턴트 및 막내 스텝 교육 헤어, 커트 어시스턴트 및 막내 스텝 교육 헤어, 커트 어시스턴트 및 막내 스텝 교육헤어, 커트 어시스턴트 및 막내 스텝 교육 헤어, 커트 어시스턴트 및 막내 스텝 교육\n',
     },
     {
-      spaceName: '준오헤어 잠실롯데월드점 (1년)',
-      workInformation: '스텝 | 헤어, 커트 어시스턴트 및 막내 스텝 교육',
-      workPeriod: '2000.00 ~ 2000.00',
+      company: '준오헤어 잠실롯데월드점',
+      position: 'LEDGER',
+      joinAt: '2019-01-30',
+      quitAt: '2022-05-30',
+      workedOn:
+        '헤어, 커트 어시스턴트 및 막내 스텝 교육 헤어, 커트 어시스턴트 및 막내 스텝 교육헤어, 커트 어시스턴트 및 막내 스텝 교육 헤어, 커트 어시스턴트 및 막내 스텝 교육 헤어, 커트 어시스턴트 및 막내 스텝 교육헤어, 커트 어시스턴트 및 막내 스텝 교육 헤어, 커트 어시스턴트 및 막내 스텝 교육\n',
     },
     {
-      spaceName: '준오헤어 잠실롯데월드점 (1년)',
-      workInformation: '스텝 | 헤어, 커트 어시스턴트 및 막내 스텝 교육',
-      workPeriod: '2000.00 ~ 2000.00',
+      company: '준오헤어 잠실롯데월드점',
+      position: 'DESIGNER',
+      joinAt: '2019-01-30',
+      quitAt: '2022-05-30',
+      workedOn:
+        '헤어, 커트 어시스턴트 및 막내 스텝 교육 헤어, 커트 어시스턴트 및 막내 스텝 교육헤어, 커트 어시스턴트 및 막내 스텝 교육 헤어, 커트 어시스턴트 및 막내 스텝 교육 헤어, 커트 어시스턴트 및 막내 스텝 교육헤어, 커트 어시스턴트 및 막내 스텝 교육 헤어, 커트 어시스턴트 및 막내 스텝 교육\n',
+    },
+    {
+      company: '준오헤어 잠실롯데월드점',
+      position: 'DESIGNER',
+      joinAt: '2019-01-30',
+      quitAt: '2022-05-30',
+      workedOn:
+        '헤어, 커트 어시스턴트 및 막내 스텝 교육 헤어, 커트 어시스턴트 및 막내 스텝 교육헤어, 커트 어시스턴트 및 막내 스텝 교육 헤어, 커트 어시스턴트 및 막내 스텝 교육 헤어, 커트 어시스턴트 및 막내 스텝 교육헤어, 커트 어시스턴트 및 막내 스텝 교육 헤어, 커트 어시스턴트 및 막내 스텝 교육\n',
     },
   ],
   certificate: [
     {
       name: '미용사(헤어) 한국기술자격검정원',
-      date: '2000.00',
-    },
-    {
-      name: '미용사(헤어) 한국기술자격검정원',
-      date: '2000.00',
-    },
-    {
-      name: '미용사(헤어) 한국기술자격검정원',
-      date: '2000.00',
-    },
-    {
-      name: '미용사(헤어) 한국기술자격검정원',
-      date: '2000.00',
-    },
-    {
-      name: '미용사(헤어) 한국기술자격검정원',
-      date: '2000.00',
-    },
-    {
-      name: '미용사(헤어) 한국기술자격검정원',
-      date: '2000.00',
-    },
-    {
-      name: '미용사(헤어) 한국기술자격검정원',
-      date: '2000.00',
+      vendor: '자격증 발급기관 명칭',
+      certificateAt: '2022-01-09',
     },
   ],
   academic: [
     {
-      name: '오젯대학교 미용학과',
-      period: '2000.00 ~ 2000.00',
-    },
-    {
-      name: '오젯고등학교 일반계',
-      period: '2000.00 ~ 2000.00',
-    },
-    {
-      name: '오젯고등학교 일반계',
-      period: '2000.00 ~ 2000.00',
-    },
-    {
-      name: '오젯고등학교 일반계',
-      period: '2000.00 ~ 2000.00',
-    },
-    {
-      name: '오젯고등학교 일반계',
-      period: '2000.00 ~ 2000.00',
-    },
-    {
-      name: '오젯고등학교 일반계',
-      period: '2000.00 ~ 2000.00',
-    },
-    {
-      name: '오젯고등학교 일반계',
-      period: '2000.00 ~ 2000.00',
+      major: '0000대학교 0000학과',
+      location: 'string',
+      joinAt: '2022-01-09',
+      quitAt: '2022-01-29',
     },
   ],
   military: {
-    category: '해당사항 없음',
-    period: '2000.01 ~ 3000.01',
-    detail: '해당사항 없음',
+    service: 'NA',
+    exemptionReason: 'string',
+    joinAt: '2022-01-09',
+    quitAt: '2022-01-20',
   },
-  snsImage: ['', '', '', ''],
 };

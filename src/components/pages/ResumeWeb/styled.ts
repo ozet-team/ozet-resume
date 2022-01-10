@@ -102,6 +102,7 @@ export const ProfileText = styled.td`
   font-size: 13px;
   padding-left: 12px;
   padding-bottom: 9px;
+  width: 100%;
   @media (min-width: 500px) {
     font-size: 16px;
     min-width: 305px;
@@ -162,15 +163,15 @@ export const ResumeModalInner = styled.div`
 `;
 export const ProfileWorkRow = styled.div`
   display: flex;
-  flex-direction: row;
   align-items: center;
   margin-bottom: 4px;
 `;
-export const ResumeColumnBar = styled.div`
+export const ResumeColumnBar = styled.div<any>`
   width: 1px;
   height: 11px;
   margin: 0 6px;
   background: black;
+  display: ${(props) => props.display};
   @media (min-width: 500px) {
     height: 22px;
   }
@@ -250,16 +251,17 @@ export const ResumeImageWrapper = styled.div`
   width: 30%;
   display: flex;
   justify-content: center;
+  align-items: center;
   margin-bottom: 20px;
   box-sizing: border-box;
   @media (min-width: 500px) {
-    width: 320px;
+    width: 33.33%;
   }
 `;
 export const ImageListWrapper = styled.section`
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  width: 100%;
 `;
 export const ImageListWrapperLess = styled.section`
   display: flex;
@@ -273,6 +275,9 @@ export const ResumeSnsImage = styled.img`
   width: 100%;
   display: flex;
   justify-content: center;
+  @media (min-width: 500px) {
+    width: 320px;
+  }
 `;
 
 export const ResumeDetailText = styled.div`
