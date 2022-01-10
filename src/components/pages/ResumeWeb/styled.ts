@@ -248,7 +248,7 @@ export const ResumeSnsLink = styled.div`
   }
 `;
 export const ResumeImageWrapper = styled.div`
-  width: 30%;
+  width: 33.33%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -272,7 +272,7 @@ export const ImageListWrapperLess = styled.section`
 `;
 export const ResumeSnsImage = styled.img`
   border-radius: 12px;
-  width: 100%;
+  width: ${(props) => props.width};
   display: flex;
   justify-content: center;
   @media (min-width: 500px) {

@@ -244,7 +244,10 @@ const ResumeWeb = () => {
                           {profileData.snsList.map(
                             (data: string, id: number) => (
                               <ResumeImageWrapper key={id}>
-                                <ResumeSnsImage src={InstagramTestImage} />
+                                <ResumeSnsImage
+                                  width={'100px'}
+                                  src={InstagramTestImage}
+                                />
                               </ResumeImageWrapper>
                             ),
                           )}
@@ -255,7 +258,10 @@ const ResumeWeb = () => {
                         <ImageListWrapperLess>
                           {profileData.snsList.map((data: any, id: any) => (
                             <ImageListWrapperLess key={id}>
-                              <ResumeSnsImage src={InstagramTestImage} />
+                              <ResumeSnsImage
+                                width={'100%'}
+                                src={InstagramTestImage}
+                              />
                             </ImageListWrapperLess>
                           ))}
                         </ImageListWrapperLess>
@@ -280,7 +286,7 @@ const ResumeWeb = () => {
               <ProfileHeaderInner>
                 <PcHeaderWrapper>
                   <ProfileNameWrapper>
-                    <ProfileNickname>{profileData.name}</ProfileNickname>
+                    <ProfileNickname>{profileData.nickname}</ProfileNickname>
                     <ProfileName>{profileData.name}</ProfileName>
                   </ProfileNameWrapper>
                   <PcTableWrapper>
