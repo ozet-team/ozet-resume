@@ -13,6 +13,7 @@ export type userData = {
 };
 export type resumeDataType = {
   username: string;
+  nickname: string;
   name: string;
   email: string;
   phoneNumber: string;
@@ -20,6 +21,7 @@ export type resumeDataType = {
   gender: string;
   introduce: string;
   profileImage: string;
+  snsAddress: string;
   address: string;
   policyForTermsAgreed: string;
   policyForPrivacyAgreed: string;

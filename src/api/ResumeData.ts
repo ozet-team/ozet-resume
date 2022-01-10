@@ -1,6 +1,7 @@
 export const resumeData = {
   username: 'ozet_d16066f09b594276bb7d9628e5ea1564',
   name: '김헤어',
+  nickname: '김오젯',
   email: 'kimhair@hair.com',
   phoneNumber: '+821057809397',
   birthday: '1997-07-12',
@@ -9,6 +10,7 @@ export const resumeData = {
   profileImage:
     'https://ozet-bucket.s3.ap-northeast-2.amazonaws.com/media/user/profile/5/20211213_92573506',
   address: '경기도 성남시 분당구 야탑동 386-4',
+  snsAddress: 'HyeokE',
   policyForTermsAgreed: '2021-12-11',
   policyForPrivacyAgreed: '2021-12-11',
   snsList: ['', '', '', '', ''],

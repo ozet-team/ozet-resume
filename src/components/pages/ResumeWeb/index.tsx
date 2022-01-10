@@ -86,23 +86,15 @@ const ResumeWeb = () => {
     const duration = calculateDuration(joinDate as string, quitDate as string);
     switch (key) {
       case 'STAFF':
-        return `인턴(스탭)${duration}`;
+        return `인턴(스탭) ${duration}`;
       case 'MANAGER':
-        return `매니저${duration}`;
+        return `매니저 ${duration}`;
       case 'DESIGNER':
-        return `디자이너${duration}`;
+        return `디자이너 ${duration}`;
       case 'LEDGER':
-        return `원장${duration}`;
+        return `원장 ${duration}`;
     }
   };
-  const careerExist = (key: string) => {
-    if (profileData.career.find((data) => data.position === key)) {
-      return true;
-    } else {
-      return false;
-    }
-  };
-
   useEffect(() => {
     Api.getJWT({ user_id: '9' });
   }, []);
@@ -183,12 +175,11 @@ const ResumeWeb = () => {
                     <ResumeBr />
                     {profileData.career.map((data: any) => (
                       <>
-                        <ResumeDetailTitle>
-                          {data.company}(기간)
-                        </ResumeDetailTitle>
+                        <ResumeDetailTitle>{data.company}</ResumeDetailTitle>
                         <ResumeSmallMargin />
                         <ResumeTerm>
-                          {data.joinAt} ~ {data.quitAt}
+                          {data.joinAt} ~ {data.quitAt} (
+                          {calculateDuration(data.joinAt, data.quitAt)})
                         </ResumeTerm>
                         <ResumeSmallMargin />
                         <ResumeDetailText>{data.workedOn}</ResumeDetailText>
@@ -242,7 +233,9 @@ const ResumeWeb = () => {
                     <ResumeBr />
                     <ResumeSnsLink>
                       <ResumeInstagramLogo src={InstagramImage} />
-                      <ResumeDetailText>{profileData.snsList}</ResumeDetailText>
+                      <ResumeDetailText>
+                        @{profileData.snsAddress}
+                      </ResumeDetailText>
                     </ResumeSnsLink>
                     {/*SNS 이미지*/}
                     {profileData.snsList.length > 4 ? (
@@ -354,7 +347,7 @@ const ResumeWeb = () => {
                       </ProfileTableRow>
                       <ProfileTableRow>
                         <ProfileCategory>SNS</ProfileCategory>
-                        <ProfileText>SNS 주소 추가</ProfileText>
+                        <ProfileText>@{profileData.snsAddress}</ProfileText>
                       </ProfileTableRow>
                     </StyledTable>
                   </PcTableWrapper>
@@ -427,7 +420,7 @@ const ResumeWeb = () => {
                 </ProfileTableRow>
                 <ProfileTableRow>
                   <ProfileCategory>SNS</ProfileCategory>
-                  <ProfileText>SNS 주소 추가</ProfileText>
+                  <ProfileText>@{profileData.snsAddress}</ProfileText>
                 </ProfileTableRow>
               </StyledTable>
             </ProfileTextWrapper>
