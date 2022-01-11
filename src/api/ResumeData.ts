@@ -1,7 +1,6 @@
-export const resumeData = {
+export const userInfoData = {
   username: 'ozet_d16066f09b594276bb7d9628e5ea1564',
   name: '김헤어',
-  nickname: '김오젯',
   email: 'kimhair@hair.com',
   phoneNumber: '+821057809397',
   birthday: '1997-07-12',
@@ -13,7 +12,21 @@ export const resumeData = {
   snsAddress: 'HyeokE',
   policyForTermsAgreed: '2021-12-11',
   policyForPrivacyAgreed: '2021-12-11',
-  snsList: ['', '', '', '', ''],
+  career: [
+    {
+      position: 'STAFF',
+      duration: 120,
+    },
+  ],
+  snsList: [
+    {
+      username: 'HYEOKEEE',
+      url: '222.dsadasdsa',
+    },
+  ],
+};
+
+export const resumeData = {
   career: [
     {
       company: '준오헤어 잠실롯데월드점',

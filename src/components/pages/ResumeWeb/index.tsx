@@ -43,13 +43,17 @@ import exProfileImg from '../../../img/profileImg.png';
 import './Resume.css';
 import ResumeCategoryBar from 'src/components/common/ResumeCategoryBar';
 import { useParams } from 'react-router-dom';
-import { resumeData as profileData } from '../../../api/ResumeData';
+import { resumeData, userInfoData } from '../../../api/ResumeData';
 import InstagramImage from '../../../img/Instagram_logo.png';
 import InstagramTestImage from '../../../img/InstagramTestImage.svg';
 import Api from '../../../api/index';
 import { imgAnimate, profileAnimate } from '../../common/Variants/Variants';
 import { useGetResume } from '../../../api/hooks/useGetResume';
-import { calculateDuration } from '../../../utils/hooks/calculateDuration';
+import {
+  calculateDuration,
+  getMonthDate,
+} from '../../../utils/hooks/calculateDuration';
+import { useGetUserInfo } from '../../../api/hooks/useGetUserInfo';
 
 const ResumeWeb = () => {
   const tabs = [
@@ -60,6 +64,7 @@ const ResumeWeb = () => {
     { label: '자기소개', id: 'introduce' },
     { label: 'SNS', id: 'sns' },
   ];
+
   const profileDetail = useRef<HTMLDivElement>(null);
   const introduce = useRef<HTMLDivElement>(null);
   const career = useRef<HTMLDivElement>(null);
@@ -77,10 +82,10 @@ const ResumeWeb = () => {
   const id = useParams<string>();
 
   const careerDuration = (key: string) => {
-    const joinDate = profileData.career.find(
+    const joinDate = resumeData.career.find(
       (data) => data.position === key,
     )?.joinAt;
-    const quitDate = profileData.career.find(
+    const quitDate = resumeData.career.find(
       (data) => data.position === key,
     )?.quitAt;
     const duration = calculateDuration(joinDate as string, quitDate as string);
@@ -101,9 +106,10 @@ const ResumeWeb = () => {
   const jwtToken = localStorage.getItem('jwtToken');
   if (jwtToken) {
     const { data }: any = useGetResume(jwtToken);
+    const { userInfo }: any = useGetUserInfo(jwtToken);
     console.log(data);
+    console.log(userInfo);
   }
-
   const checkID = async (key: string) => {
     switch (key) {
       case 'introduce':
@@ -147,7 +153,7 @@ const ResumeWeb = () => {
 
   return (
     <>
-      {profileData && (
+      {resumeData && (
         <ResumeWapper>
           <ResumeDetailWrapper
             variants={modalAnimate}
@@ -173,7 +179,7 @@ const ResumeWeb = () => {
                     <ResumeMargin ref={career} />
                     <ResumeSubTitle>경력</ResumeSubTitle>
                     <ResumeBr />
-                    {profileData.career.map((data: any) => (
+                    {resumeData.career.map((data: any) => (
                       <>
                         <ResumeDetailTitle>{data.company}</ResumeDetailTitle>
                         <ResumeSmallMargin />
@@ -189,7 +195,7 @@ const ResumeWeb = () => {
                     <ResumeMargin ref={certificate} />
                     <ResumeSubTitle>자격증</ResumeSubTitle>
                     <ResumeBr />
-                    {profileData.certificate.map((data: any) => (
+                    {resumeData.certificate.map((data: any) => (
                       <>
                         <ResumeDetailTitle>{data.name}</ResumeDetailTitle>
                         <ResumeSmallMargin />
@@ -202,7 +208,7 @@ const ResumeWeb = () => {
                     <ResumeMargin ref={academic} />
                     <ResumeSubTitle>학력</ResumeSubTitle>
                     <ResumeBr />
-                    {profileData.academic.map((data: any) => (
+                    {resumeData.academic.map((data: any) => (
                       <>
                         <ResumeDetailTitle>{data.major}</ResumeDetailTitle>
                         <ResumeSmallMargin />
@@ -216,37 +222,45 @@ const ResumeWeb = () => {
                     <ResumeSubTitle>병역</ResumeSubTitle>
                     <ResumeBr />
                     <ResumeDetailTitle>
-                      {profileData.military.service}
+                      {resumeData.military.service}
                     </ResumeDetailTitle>
                     <ResumeSmallMargin />
-                    <ResumeTerm>{profileData.military.quitAt}</ResumeTerm>
+                    <ResumeTerm>{resumeData.military.quitAt}</ResumeTerm>
                     <ResumeSmallMargin />
                     <ResumeDetailText>
-                      {profileData.military.exemptionReason}
+                      {resumeData.military.exemptionReason}
                     </ResumeDetailText>
                     <ResumeMargin ref={introduce} />
                     <ResumeSubTitle>자기소개 </ResumeSubTitle>
                     <ResumeBr />
-                    <ResumeDetailText>{profileData.introduce}</ResumeDetailText>
+                    <ResumeDetailText>
+                      {userInfoData.introduce}
+                    </ResumeDetailText>
                     <ResumeMargin ref={sns} />
                     <ResumeSubTitle>SNS</ResumeSubTitle>
                     <ResumeBr />
                     <ResumeSnsLink>
                       <ResumeInstagramLogo src={InstagramImage} />
                       <ResumeDetailText>
-                        @{profileData.snsAddress}
+                        @{userInfoData.snsAddress}
                       </ResumeDetailText>
                     </ResumeSnsLink>
                     {/*SNS 이미지*/}
-                    {profileData.snsList.length > 4 ? (
+                    {userInfoData.snsList.length > 4 ? (
                       <>
                         <ImageListWrapper>
-                          {profileData.snsList.map(
-                            (data: string, id: number) => (
+                          {userInfoData.snsList.map(
+                            (
+                              data: {
+                                username: string;
+                                url: string;
+                              },
+                              id: number,
+                            ) => (
                               <ResumeImageWrapper key={id}>
                                 <ResumeSnsImage
                                   width={'100px'}
-                                  src={InstagramTestImage}
+                                  src={data.url}
                                 />
                               </ResumeImageWrapper>
                             ),
@@ -256,7 +270,7 @@ const ResumeWeb = () => {
                     ) : (
                       <>
                         <ImageListWrapperLess>
-                          {profileData.snsList.map((data: any, id: any) => (
+                          {userInfoData.snsList.map((data: any, id: any) => (
                             <ImageListWrapperLess key={id}>
                               <ResumeSnsImage
                                 width={'100%'}
@@ -286,8 +300,8 @@ const ResumeWeb = () => {
               <ProfileHeaderInner>
                 <PcHeaderWrapper>
                   <ProfileNameWrapper>
-                    <ProfileNickname>{profileData.nickname}</ProfileNickname>
-                    <ProfileName>{profileData.name}</ProfileName>
+                    <ProfileNickname>{userInfoData.name}</ProfileNickname>
+                    <ProfileName>{userInfoData.name}</ProfileName>
                   </ProfileNameWrapper>
                   <PcTableWrapper>
                     {/*경력사항*/}
@@ -295,9 +309,9 @@ const ResumeWeb = () => {
                       <ProfileTableRow>
                         <ProfileCategory>경력</ProfileCategory>
                         <ProfileText>
-                          {profileData.career.length < 3 && (
+                          {userInfoData.career.length < 3 && (
                             <ProfileWorkRow>
-                              {profileData.career.map((data, key) => (
+                              {userInfoData.career.map((data, key) => (
                                 <>
                                   <ResumeColumnBar
                                     display={key == 0 && 'none'}
@@ -307,10 +321,10 @@ const ResumeWeb = () => {
                               ))}
                             </ProfileWorkRow>
                           )}
-                          {profileData.career.length > 2 && (
+                          {userInfoData.career.length > 2 && (
                             <>
                               <ProfileWorkRow>
-                                {profileData.career
+                                {userInfoData.career
                                   .slice(0, 2)
                                   .map((data, key) => (
                                     <>
@@ -322,8 +336,8 @@ const ResumeWeb = () => {
                                   ))}
                               </ProfileWorkRow>
                               <ProfileWorkRow>
-                                {profileData.career
-                                  .slice(2, profileData.career.length)
+                                {userInfoData.career
+                                  .slice(2, userInfoData.career.length)
                                   .map((data, key) => (
                                     <>
                                       <ResumeColumnBar
@@ -339,29 +353,29 @@ const ResumeWeb = () => {
                       </ProfileTableRow>
                       <ProfileTableRow>
                         <ProfileCategory>연락처</ProfileCategory>
-                        <ProfileText>{profileData.phoneNumber}</ProfileText>
+                        <ProfileText>{userInfoData.phoneNumber}</ProfileText>
                       </ProfileTableRow>
                     </StyledTable>
                     <StyledTable margin={50}>
                       <ProfileTableRow>
                         <ProfileCategory>생년월일</ProfileCategory>
-                        <ProfileText>{profileData.birthday}</ProfileText>
+                        <ProfileText>{userInfoData.birthday}</ProfileText>
                       </ProfileTableRow>
                       <ProfileTableRow>
                         <ProfileCategory>주소</ProfileCategory>
-                        <ProfileText>{profileData.address}</ProfileText>
+                        <ProfileText>{userInfoData.address}</ProfileText>
                       </ProfileTableRow>
                       <ProfileTableRow>
                         <ProfileCategory>SNS</ProfileCategory>
-                        <ProfileText>@{profileData.snsAddress}</ProfileText>
+                        <ProfileText>@{userInfoData.snsAddress}</ProfileText>
                       </ProfileTableRow>
                     </StyledTable>
                   </PcTableWrapper>
                 </PcHeaderWrapper>
-                <PcProfileImage src={profileData.profileImage} />
+                <PcProfileImage src={userInfoData.profileImage} />
                 <ProfileImageWrapper>
                   <ProfileImage
-                    src={profileData.profileImage}
+                    src={userInfoData.profileImage}
                     variants={imgAnimate}
                     animate={toggle ? 'active' : 'unActive'}
                     transition={{ duration: 0.5 }}
@@ -378,9 +392,9 @@ const ResumeWeb = () => {
                 <ProfileTableRow>
                   <ProfileCategory>경력</ProfileCategory>
                   <ProfileText>
-                    {profileData.career.length < 3 && (
+                    {userInfoData.career.length < 3 && (
                       <ProfileWorkRow>
-                        {profileData.career.map((data, key) => (
+                        {userInfoData.career.map((data, key) => (
                           <>
                             <ResumeColumnBar display={key == 0 && 'none'} />
                             <div>{careerDuration(data.position)}</div>
@@ -388,10 +402,10 @@ const ResumeWeb = () => {
                         ))}
                       </ProfileWorkRow>
                     )}
-                    {profileData.career.length > 2 && (
+                    {userInfoData.career.length > 2 && (
                       <>
                         <ProfileWorkRow>
-                          {profileData.career.slice(0, 2).map((data, key) => (
+                          {userInfoData.career.slice(0, 2).map((data, key) => (
                             <>
                               <ResumeColumnBar display={key == 0 && 'none'} />
                               <div>{careerDuration(data.position)}</div>
@@ -399,8 +413,8 @@ const ResumeWeb = () => {
                           ))}
                         </ProfileWorkRow>
                         <ProfileWorkRow>
-                          {profileData.career
-                            .slice(2, profileData.career.length)
+                          {userInfoData.career
+                            .slice(2, userInfoData.career.length)
                             .map((data, key) => (
                               <>
                                 <ResumeColumnBar display={key == 0 && 'none'} />
@@ -414,19 +428,19 @@ const ResumeWeb = () => {
                 </ProfileTableRow>
                 <ProfileTableRow>
                   <ProfileCategory>연락처</ProfileCategory>
-                  <ProfileText>{profileData.phoneNumber}</ProfileText>
+                  <ProfileText>{userInfoData.phoneNumber}</ProfileText>
                 </ProfileTableRow>
                 <ProfileTableRow>
                   <ProfileCategory>생년월일</ProfileCategory>
-                  <ProfileText>{profileData.birthday}</ProfileText>
+                  <ProfileText>{userInfoData.birthday}</ProfileText>
                 </ProfileTableRow>
                 <ProfileTableRow>
                   <ProfileCategory>주소</ProfileCategory>
-                  <ProfileText>{profileData.address}</ProfileText>
+                  <ProfileText>{userInfoData.address}</ProfileText>
                 </ProfileTableRow>
                 <ProfileTableRow>
                   <ProfileCategory>SNS</ProfileCategory>
-                  <ProfileText>@{profileData.snsAddress}</ProfileText>
+                  <ProfileText>@{userInfoData.snsAddress}</ProfileText>
                 </ProfileTableRow>
               </StyledTable>
             </ProfileTextWrapper>

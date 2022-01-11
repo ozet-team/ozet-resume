@@ -11,9 +11,8 @@ export type userData = {
   };
   token: string;
 };
-export type resumeDataType = {
+export type userInfoDataType = {
   username: string;
-  nickname: string;
   name: string;
   email: string;
   phoneNumber: string;
@@ -25,7 +24,19 @@ export type resumeDataType = {
   address: string;
   policyForTermsAgreed: string;
   policyForPrivacyAgreed: string;
-  snsList: [];
+  snsList: [
+    {
+      username: string;
+      url: string;
+    },
+  ];
+  career: [
+    {
+      STAFF: number;
+    },
+  ];
+};
+export type resumeDataType = {
   career: [
     {
       company: string;
