@@ -17,6 +17,14 @@ export const userInfoData = {
       position: 'STAFF',
       duration: 120,
     },
+    {
+      position: 'STAFF',
+      duration: 125,
+    },
+    {
+      position: 'STAFF',
+      duration: 120,
+    },
   ],
   snsList: [
     {

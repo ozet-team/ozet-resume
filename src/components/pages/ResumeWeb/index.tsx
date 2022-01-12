@@ -51,7 +51,8 @@ import { imgAnimate, profileAnimate } from '../../common/Variants/Variants';
 import { useGetResume } from '../../../api/hooks/useGetResume';
 import {
   calculateDuration,
-  getMonthDate,
+  getFullduration,
+  getYearMonth,
 } from '../../../utils/hooks/calculateDuration';
 import { useGetUserInfo } from '../../../api/hooks/useGetUserInfo';
 
@@ -82,13 +83,11 @@ const ResumeWeb = () => {
   const id = useParams<string>();
 
   const careerDuration = (key: string) => {
-    const joinDate = resumeData.career.find(
+    const date = userInfoData.career.find(
       (data) => data.position === key,
-    )?.joinAt;
-    const quitDate = resumeData.career.find(
-      (data) => data.position === key,
-    )?.quitAt;
-    const duration = calculateDuration(joinDate as string, quitDate as string);
+    )?.duration;
+
+    const duration = getYearMonth(date as number);
     switch (key) {
       case 'STAFF':
         return `인턴(스탭) ${duration}`;
@@ -153,7 +152,7 @@ const ResumeWeb = () => {
 
   return (
     <>
-      {resumeData && (
+      {resumeData && userInfoData && (
         <ResumeWapper>
           <ResumeDetailWrapper
             variants={modalAnimate}
@@ -177,7 +176,9 @@ const ResumeWeb = () => {
                 <ResumeDetailInner ref={profileDetail}>
                   <ResumeInnerWrapper>
                     <ResumeMargin ref={career} />
-                    <ResumeSubTitle>경력</ResumeSubTitle>
+                    <ResumeSubTitle>
+                      경력 ({getFullduration(userInfoData.career)})
+                    </ResumeSubTitle>
                     <ResumeBr />
                     {resumeData.career.map((data: any) => (
                       <>
