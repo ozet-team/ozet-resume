@@ -1,15 +1,18 @@
 import useSWR from 'swr';
 import Api from '../index';
 
-async function getUserInfo(jwtToken: string) {
-  const res = await Api.getUserInfo(jwtToken);
+async function getUserInfo() {
+  const res = await Api.getUserInfo();
   return res.data;
 }
-export function useGetUserInfo(jwtToken: string) {
-  const { data: userInfo, error } = useSWR([jwtToken], getUserInfo);
+export function useGetUserInfo() {
+  const { data: userInfoData, error: userInfoError } = useSWR(
+    [`/member/user/me`],
+    getUserInfo,
+  );
   return {
-    data: userInfo && error,
-    error,
-    loading: !error && !userInfo,
+    data: userInfoData && userInfoData,
+    userInfoError,
+    loading: !userInfoError && !userInfoError,
   };
 }

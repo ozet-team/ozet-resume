@@ -104,10 +104,10 @@ const ResumeWeb = () => {
   }, []);
   const jwtToken = localStorage.getItem('jwtToken');
   if (jwtToken) {
-    const { data }: any = useGetResume(jwtToken);
-    const { userInfo }: any = useGetUserInfo(jwtToken);
-    console.log(data);
-    console.log(userInfo);
+    const userInfo: any = useGetUserInfo();
+    console.log('userInfo', userInfo.data);
+    const resume: any = useGetResume();
+    console.log('userInfo', resume.data);
   }
   const checkID = async (key: string) => {
     switch (key) {

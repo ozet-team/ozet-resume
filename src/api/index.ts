@@ -3,21 +3,23 @@ import { resumeDataType, userData, userInfoDataType } from './types';
 
 export class ResumeApi {
   private API: string;
+  private JWT: string | null;
   constructor() {
     this.API = 'https://api-staging.ozet.app/api/v1';
+    this.JWT = localStorage.getItem('jwtToken');
   }
 
-  getUserInfo = (jwtToken: string) => {
+  getUserInfo = () => {
     return axios.get<userInfoDataType>(`${this.API}/member/user/me`, {
       headers: {
-        Authorization: `JWT ${jwtToken}`,
+        Authorization: `JWT ${this.JWT}`,
       },
     });
   };
-  getResume = (jwtToken: string) => {
+  getResume = () => {
     return axios.get<resumeDataType>(`${this.API}/member/user/me/resume`, {
       headers: {
-        Authorization: `JWT ${jwtToken}`,
+        Authorization: `JWT ${this.JWT}`,
       },
     });
   };

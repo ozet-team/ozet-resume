@@ -18,11 +18,11 @@ export const userInfoData = {
       duration: 120,
     },
     {
-      position: 'STAFF',
+      position: 'DESIGNER',
       duration: 125,
     },
     {
-      position: 'STAFF',
+      position: 'LEDGER',
       duration: 120,
     },
   ],
