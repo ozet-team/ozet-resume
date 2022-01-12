@@ -4,5 +4,10 @@
     left: 0;
     right: 0;
     height: 2px;
-    background: black;
+    background: #5D2FFF;
+    opacity: 100%;
+}
+.selected{
+    opacity: 100% !important;
+    color: #5D2FFF !important;
 }

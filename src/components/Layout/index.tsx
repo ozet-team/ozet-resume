@@ -5,7 +5,8 @@ import ResumeWeb from '../pages/ResumeWeb';
 export const Layout = () => {
   return (
     <Switch>
-      <Route path={'/resume/:id'} component={ResumeWeb} />
+      <Route exact path={'/resume'} component={ResumeWeb} />
+      <Route exact path={'/resume/:id'} component={ResumeWeb} />
     </Switch>
   );
 };
