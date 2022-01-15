@@ -42,3 +42,9 @@ export const getFullduration = (
     return `${year}년 ${month}개월`;
   }
 };
+export const changeDateYM = (fullDate: string) => {
+  const date = new Date(fullDate);
+  const year = date.getFullYear();
+  const month = date.getMonth();
+  return `${year}. ${month}`;
+};

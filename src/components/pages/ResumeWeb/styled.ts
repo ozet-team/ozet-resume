@@ -1,8 +1,9 @@
 import { motion } from 'framer-motion';
 import styled from 'styled-components';
 
-export const ResumeWapper = styled.div`
+export const ResumeWrapper = styled.div`
   background: #f0f2f5;
+  font-family: 'Apple SD Gothic Neo', sans-serif;
 `;
 export const ProfileWrapper = styled.div`
   background: #f0f2f5;
@@ -280,7 +281,7 @@ export const ResumeSnsImage = styled.img`
   }
 `;
 
-export const ResumeDetailText = styled.div`
+export const ResumeDetailText = styled.p`
   font-size: 13px;
   font-weight: 400;
   @media (min-width: 500px) {

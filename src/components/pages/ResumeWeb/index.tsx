@@ -36,7 +36,7 @@ import {
   ResumeSnsLink,
   ResumeSubTitle,
   ResumeTerm,
-  ResumeWapper,
+  ResumeWrapper,
   StyledTable,
 } from './styled';
 import exProfileImg from '../../../img/profileImg.png';
@@ -51,10 +51,12 @@ import { imgAnimate, profileAnimate } from '../../common/Variants/Variants';
 import { useGetResume } from '../../../api/hooks/useGetResume';
 import {
   calculateDuration,
+  changeDateYM,
   getFullduration,
   getYearMonth,
 } from '../../../utils/hooks/calculateDuration';
 import { useGetUserInfo } from '../../../api/hooks/useGetUserInfo';
+import { convertPosition } from '../../../utils/hooks/convert';
 
 const ResumeWeb = () => {
   const tabs = [
@@ -153,7 +155,7 @@ const ResumeWeb = () => {
   return (
     <>
       {resumeData && userInfoData && (
-        <ResumeWapper>
+        <ResumeWrapper>
           <ResumeDetailWrapper
             variants={modalAnimate}
             animate={toggle ? 'active' : 'unActive'}
@@ -185,8 +187,10 @@ const ResumeWeb = () => {
                         <ResumeDetailTitle>{data.company}</ResumeDetailTitle>
                         <ResumeSmallMargin />
                         <ResumeTerm>
-                          {data.joinAt} ~ {data.quitAt} (
-                          {calculateDuration(data.joinAt, data.quitAt)})
+                          {changeDateYM(data.joinAt)} ~{' '}
+                          {changeDateYM(data.quitAt)} (
+                          {calculateDuration(data.joinAt, data.quitAt)}) |{' '}
+                          {convertPosition(data.position)}
                         </ResumeTerm>
                         <ResumeSmallMargin />
                         <ResumeDetailText>{data.workedOn}</ResumeDetailText>
@@ -214,7 +218,8 @@ const ResumeWeb = () => {
                         <ResumeDetailTitle>{data.major}</ResumeDetailTitle>
                         <ResumeSmallMargin />
                         <ResumeTerm>
-                          {data.joinAt} ~ {data.quitAt}
+                          {changeDateYM(data.joinAt)} ~{' '}
+                          {changeDateYM(data.quitAt)}
                         </ResumeTerm>
                         <ResumeMargin />
                       </>
@@ -226,7 +231,10 @@ const ResumeWeb = () => {
                       {resumeData.military.service}
                     </ResumeDetailTitle>
                     <ResumeSmallMargin />
-                    <ResumeTerm>{resumeData.military.quitAt}</ResumeTerm>
+                    <ResumeTerm>
+                      {changeDateYM(resumeData.military.joinAt)} ~{' '}
+                      {changeDateYM(resumeData.military.quitAt)}
+                    </ResumeTerm>
                     <ResumeSmallMargin />
                     <ResumeDetailText>
                       {resumeData.military.exemptionReason}
@@ -301,7 +309,7 @@ const ResumeWeb = () => {
               <ProfileHeaderInner>
                 <PcHeaderWrapper>
                   <ProfileNameWrapper>
-                    <ProfileNickname>{userInfoData.name}</ProfileNickname>
+                    <ProfileNickname>닉네임</ProfileNickname>
                     <ProfileName>{userInfoData.name}</ProfileName>
                   </ProfileNameWrapper>
                   <PcTableWrapper>
@@ -447,7 +455,7 @@ const ResumeWeb = () => {
             </ProfileTextWrapper>
             <div ref={lastElement} />
           </ProfileWrapper>
-        </ResumeWapper>
+        </ResumeWrapper>
       )}
     </>
   );
