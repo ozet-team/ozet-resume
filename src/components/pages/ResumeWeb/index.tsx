@@ -43,7 +43,7 @@ import exProfileImg from '../../../img/profileImg.png';
 import './Resume.css';
 import ResumeCategoryBar from 'src/components/common/ResumeCategoryBar';
 import { useParams } from 'react-router-dom';
-import { resumeData, userInfoData } from '../../../api/ResumeData';
+// import { resumeData, userInfoData } from '../../../api/ResumeData';
 import InstagramImage from '../../../img/Instagram_logo.png';
 import InstagramTestImage from '../../../img/InstagramTestImage.svg';
 import Api from '../../../api/index';
@@ -52,11 +52,16 @@ import { useGetResume } from '../../../api/hooks/useGetResume';
 import {
   calculateDuration,
   changeDateYM,
+  changeDateYMD,
   getFullduration,
   getYearMonth,
 } from '../../../utils/hooks/calculateDuration';
 import { useGetUserInfo } from '../../../api/hooks/useGetUserInfo';
-import { convertPosition } from '../../../utils/hooks/convert';
+import {
+  convertPhoneNumber,
+  convertPosition,
+} from '../../../utils/hooks/convert';
+import { resumeDataType, userInfoDataType } from '../../../api/types';
 
 const ResumeWeb = () => {
   const tabs = [
@@ -83,7 +88,16 @@ const ResumeWeb = () => {
   const [toggle, setToggle] = useState<boolean>(false);
 
   const id = useParams<string>();
+  useEffect(() => {
+    Api.getJWT({ user_id: '9' });
+  }, []);
+  const jwtToken = localStorage.getItem('jwtToken');
 
+  const userInfo: any = useGetUserInfo();
+  const userInfoData: userInfoDataType = userInfo.data;
+  const resume: any = useGetResume();
+  const resumeData: resumeDataType = resume.data;
+  console.log(userInfoData);
   const careerDuration = (key: string) => {
     const date = userInfoData.career.find(
       (data) => data.position === key,
@@ -101,16 +115,7 @@ const ResumeWeb = () => {
         return `원장 ${duration}`;
     }
   };
-  useEffect(() => {
-    Api.getJWT({ user_id: '9' });
-  }, []);
-  const jwtToken = localStorage.getItem('jwtToken');
-  if (jwtToken) {
-    const userInfo: any = useGetUserInfo();
-    console.log('userInfo', userInfo.data);
-    const resume: any = useGetResume();
-    console.log('userInfo', resume.data);
-  }
+
   const checkID = async (key: string) => {
     switch (key) {
       case 'introduce':
@@ -204,7 +209,9 @@ const ResumeWeb = () => {
                       <>
                         <ResumeDetailTitle>{data.name}</ResumeDetailTitle>
                         <ResumeSmallMargin />
-                        <ResumeTerm>{data.certificateAt}</ResumeTerm>
+                        <ResumeTerm>
+                          {changeDateYMD(data.certificateAt)}
+                        </ResumeTerm>
                         <ResumeSmallMargin />
                         <ResumeDetailText>{data.vendor}</ResumeDetailText>
                         <ResumeMargin />
@@ -362,7 +369,9 @@ const ResumeWeb = () => {
                       </ProfileTableRow>
                       <ProfileTableRow>
                         <ProfileCategory>연락처</ProfileCategory>
-                        <ProfileText>{userInfoData.phoneNumber}</ProfileText>
+                        <ProfileText>
+                          {convertPhoneNumber(userInfoData.phoneNumber)}
+                        </ProfileText>
                       </ProfileTableRow>
                     </StyledTable>
                     <StyledTable margin={50}>
@@ -437,7 +446,9 @@ const ResumeWeb = () => {
                 </ProfileTableRow>
                 <ProfileTableRow>
                   <ProfileCategory>연락처</ProfileCategory>
-                  <ProfileText>{userInfoData.phoneNumber}</ProfileText>
+                  <ProfileText>
+                    {convertPhoneNumber(userInfoData.phoneNumber)}
+                  </ProfileText>
                 </ProfileTableRow>
                 <ProfileTableRow>
                   <ProfileCategory>생년월일</ProfileCategory>

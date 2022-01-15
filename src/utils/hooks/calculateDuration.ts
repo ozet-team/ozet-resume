@@ -9,6 +9,8 @@ export const calculateDuration = (joinAt: string, quitAt: string) => {
   const month = Math.floor((durationDay % 365) / 30);
   if (month < 1) {
     return `${year}년`;
+  } else if (year < 1) {
+    return `${month}개월`;
   } else {
     return `${year}년 ${month}개월`;
   }
@@ -43,8 +45,15 @@ export const getFullduration = (
   }
 };
 export const changeDateYM = (fullDate: string) => {
-  const date = new Date(fullDate);
-  const year = date.getFullYear();
-  const month = date.getMonth();
+  const newDate = new Date(fullDate);
+  const year = newDate.getFullYear();
+  const month = newDate.getMonth() + 1;
   return `${year}. ${month}`;
+};
+export const changeDateYMD = (fullDate: string) => {
+  const newDate = new Date(fullDate);
+  const year = newDate.getFullYear();
+  const month = newDate.getMonth() + 1;
+  const date = newDate.getDate();
+  return `${year}. ${month}. ${date}`;
 };
