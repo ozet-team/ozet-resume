@@ -26,7 +26,7 @@ export const getYearMonth = (date: number) => {
     return `${year}년 ${month}개월`;
   }
 };
-export const getFullduration = (
+export const getFullDuration = (
   career: {
     position: string;
     duration: number;

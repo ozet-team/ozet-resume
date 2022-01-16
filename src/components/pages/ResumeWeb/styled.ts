@@ -165,6 +165,7 @@ export const ResumeModalInner = styled.div`
 export const ProfileWorkRow = styled.div`
   display: flex;
   align-items: center;
+  text-align: center;
   margin-bottom: 4px;
 `;
 export const ResumeColumnBar = styled.div<any>`
@@ -173,8 +174,11 @@ export const ResumeColumnBar = styled.div<any>`
   margin: 0 6px;
   background: black;
   display: ${(props) => props.display};
-  @media (min-width: 500px) {
+  @media (min-width: 600px) {
     height: 22px;
+  }
+  @media (min-width: 500px) {
+    height: 7px;
   }
 `;
 
