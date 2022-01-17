@@ -10,7 +10,7 @@ export const convertPosition = (position: string) => {
       return `매니저`;
     case 'DESIGNER':
       return `디자이너`;
-    case 'LEDGER':
+    case 'DIRECTOR':
       return `원장`;
   }
 };

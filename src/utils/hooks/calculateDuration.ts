@@ -1,12 +1,13 @@
-import { createArrayReporterError } from 'jest-config/build/ReporterValidationErrors';
+import moment from 'moment';
 
 export const calculateDuration = (joinAt: string, quitAt: string) => {
-  const joinDate = new Date(joinAt);
-  const quitDate = new Date(quitAt);
-  const durationMs = quitDate.getTime() - joinDate.getTime();
-  const durationDay = durationMs / (1000 * 60 * 60 * 24);
-  const year = Math.floor(durationDay / 365);
-  const month = Math.floor((durationDay % 365) / 30);
+  const t1 = moment(joinAt, 'YYYY-MM-DD');
+  const t2 = moment(quitAt, 'YYYY-MM-DD');
+  const rowMonth = moment.duration(t2.diff(t1)).asMonths();
+  const rowYear = moment.duration(t2.diff(t1)).asYears();
+  const month = Math.round(rowMonth);
+  const year = Math.floor(rowYear);
+
   if (month < 1) {
     return `${year}년`;
   } else if (year < 1) {
@@ -36,6 +37,7 @@ export const getFullDuration = (
   career.map((data) => (date = date + data.duration));
   const year = Math.floor(date / 365);
   const month = Math.floor((date % 365) / 30);
+
   if (month < 1) {
     return `${year}년`;
   } else if (year < 1) {

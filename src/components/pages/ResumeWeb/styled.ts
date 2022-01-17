@@ -20,6 +20,8 @@ export const ProfileWrapper = styled.div`
 export const ProfileImage = styled(motion.img)`
   height: 180px;
   width: 180px;
+  border: 0 solid;
+  border-radius: 70px;
   position: absolute;
 `;
 export const PcProfileImage = styled(motion.img)`
@@ -28,6 +30,8 @@ export const PcProfileImage = styled(motion.img)`
     display: flex;
     height: 170px;
     width: 170px;
+    border: 0 solid;
+    border-radius: 70px;
     //margin-left: 18px;
   }
 `;
