@@ -26,6 +26,7 @@ import { resumeData, userInfoData } from '../../../api/ResumeData';
 import CareerTable from '../../common/CareerTable';
 import {
   convertBirth,
+  convertMilitary,
   convertPhoneNumber,
   convertPosition,
   locationConvert,
@@ -90,7 +91,7 @@ const ResumePdf = () => {
               <PdfCareerRowLeft>
                 <PdfPosition>{convertPosition(data.position)}</PdfPosition>
                 <PdfDuration>
-                  {changeDateYM(data.joinAt)}~{changeDateYM(data.quitAt)}
+                  {changeDateYM(data.joinAt)} ~ {changeDateYM(data.quitAt)}
                 </PdfDuration>
               </PdfCareerRowLeft>
               <PdfCareerRowRight>
@@ -112,6 +113,38 @@ const ResumePdf = () => {
               <PdfCompany>{data.name}</PdfCompany>
               <PdfDuration>{data.certificateAt}</PdfDuration>
             </>
+          ))}
+        </PdfCareerWrapper>
+        <PdfCategory>학력</PdfCategory>
+        <PdfHr marginTop={6} />
+        <PdfCareerWrapper>
+          {resumeData.academic.map((data) => (
+            <>
+              <PdfCompany>{data.major}</PdfCompany>
+              <PdfDuration>
+                {changeDateYM(data.joinAt)} ~ {changeDateYM(data.quitAt)}
+              </PdfDuration>
+            </>
+          ))}
+        </PdfCareerWrapper>
+        <PdfCategory>병역</PdfCategory>
+        <PdfHr marginTop={6} />
+        <PdfCareerWrapper>
+          <PdfCompany>
+            {convertMilitary(resumeData.military.service)}
+          </PdfCompany>
+          <PdfWorkedOn>{resumeData.military.exemptionReason}</PdfWorkedOn>
+        </PdfCareerWrapper>
+        <PdfCategory>자기소개</PdfCategory>
+        <PdfHr marginTop={6} />
+        <PdfCareerWrapper>
+          <PdfWorkedOn>{userInfoData.introduce}</PdfWorkedOn>
+        </PdfCareerWrapper>
+        <PdfCategory>SNS</PdfCategory>
+        <PdfHr marginTop={6} />
+        <PdfCareerWrapper>
+          {userInfoData.snsList.map((data, id) => (
+            <img key={id} src={data.url} />
           ))}
         </PdfCareerWrapper>
       </PdfInner>

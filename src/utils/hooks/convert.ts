@@ -14,6 +14,18 @@ export const convertPosition = (position: string) => {
       return `원장`;
   }
 };
+export const convertMilitary = (military: string) => {
+  switch (military) {
+    case 'NA':
+      return `공익`;
+    case 'EXEMPTION':
+      return `면제`;
+    case 'UNFINISHED':
+      return `복무 중`;
+    case 'FINISHED':
+      return `군필`;
+  }
+};
 export const convertPhoneNumber = (phone: string) => {
   const number = phone.replace(/\D/g, '').slice(-10);
   const firstNum = number.slice(0, 2);

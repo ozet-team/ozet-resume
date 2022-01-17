@@ -85,6 +85,10 @@ export const PdfProfileImage = styled.img`
 export const PdfCategory = styled.div`
   font-size: 12px;
   font-weight: 600;
+  margin-top: 24px;
+  &:first-child {
+    margin-top: 0;
+  }
 `;
 export const PdfHr = styled.hr<any>`
   height: 1px;
