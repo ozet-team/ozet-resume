@@ -59,6 +59,7 @@ import {
 import { useGetUserInfo } from '../../../api/hooks/useGetUserInfo';
 import {
   convertBirth,
+  convertMilitary,
   convertPhoneNumber,
   convertPosition,
 } from '../../../utils/hooks/convert';
@@ -218,7 +219,7 @@ const ResumeWeb = () => {
                     <ResumeSubTitle>병역</ResumeSubTitle>
                     <ResumeBr />
                     <ResumeDetailTitle>
-                      {resumeData.military.service}
+                      {convertMilitary(resumeData.military.service)}
                     </ResumeDetailTitle>
                     <ResumeSmallMargin />
                     <ResumeTerm>

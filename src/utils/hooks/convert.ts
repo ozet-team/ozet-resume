@@ -17,7 +17,7 @@ export const convertPosition = (position: string) => {
 export const convertMilitary = (military: string) => {
   switch (military) {
     case 'NA':
-      return `공익`;
+      return '해당 없음';
     case 'EXEMPTION':
       return `면제`;
     case 'UNFINISHED':
