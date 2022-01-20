@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { RefObject, useRef } from 'react';
 import {
   PdfCareerInner,
   PdfCareerRowLeft,
@@ -45,11 +45,24 @@ const ResumePdf = () => {
     const imgWidth = 180;
     const imgHeight = (canvas.height * imgWidth) / canvas.width;
     const imgData = canvas.toDataURL('image/png');
-    console.log(doc);
-    console.log(imgData);
-    doc.addImage(imgData, 'PNG', 15, 25, imgWidth, imgHeight);
+    console.log(imgHeight);
+
+    const pageHeight = 295;
+    let heightLeft = imgHeight;
+
+    let position = 0;
+    while (heightLeft >= 20) {
+      position = heightLeft - imgHeight + 15;
+
+      doc.addImage(imgData, 'PNG', 15, position, imgWidth, imgHeight);
+      doc.addPage();
+      heightLeft -= pageHeight;
+      console.log(heightLeft);
+    }
+
     doc.save('resume.pdf');
   };
+
   return (
     <PdfWrapper>
       <button
