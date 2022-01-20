@@ -50,12 +50,15 @@ const ResumePdf = () => {
     const pageHeight = 295;
     let heightLeft = imgHeight;
 
-    let position = 0;
+    let position = 20;
+    doc.addImage(imgData, 'PNG', 15, position, imgWidth, imgHeight);
+    position = heightLeft - imgHeight + 15;
+    heightLeft -= pageHeight;
     while (heightLeft >= 20) {
       position = heightLeft - imgHeight + 15;
-
-      doc.addImage(imgData, 'PNG', 15, position, imgWidth, imgHeight);
       doc.addPage();
+      doc.addImage(imgData, 'PNG', 15, position, imgWidth, imgHeight);
+
       heightLeft -= pageHeight;
       console.log(heightLeft);
     }
