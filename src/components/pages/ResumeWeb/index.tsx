@@ -92,7 +92,7 @@ const ResumeWeb = () => {
 
   const id = useParams<string>();
   useEffect(() => {
-    Api.getJWT({ userId: '0' });
+    Api.getJWT({ user_id: '9' });
   }, []);
 
   const jwtToken = localStorage.getItem('jwtToken');
