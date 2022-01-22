@@ -23,7 +23,7 @@ export class ResumeApi {
       },
     });
   };
-  getJWT = (payload: { user_id: string }) => {
+  getJWT = (payload: { userId: string }) => {
     return axios
       .post<userData>(`${this.API}/member/auth/passcode/pass`, payload)
       .then((res) => {
