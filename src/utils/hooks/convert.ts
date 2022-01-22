@@ -21,7 +21,7 @@ export const convertMilitary = (military: string) => {
     case 'EXEMPTION':
       return `면제`;
     case 'UNFINISHED':
-      return `복무 중`;
+      return `미필`;
     case 'FINISHED':
       return `군필`;
   }

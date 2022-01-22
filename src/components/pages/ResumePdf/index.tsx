@@ -37,6 +37,7 @@ import jsPDF from 'jspdf';
 
 const ResumePdf = () => {
   const resume = useRef<HTMLDivElement>(null);
+  const profileImg = new Image();
   const getPdf = async () => {
     const element = resume.current;
     const canvas = await html2canvas(element as HTMLDivElement);
@@ -45,12 +46,13 @@ const ResumePdf = () => {
     const imgWidth = 180;
     const imgHeight = (canvas.height * imgWidth) / canvas.width;
     const imgData = canvas.toDataURL('image/png');
-    console.log(imgHeight);
+    profileImg.src = userInfoData.profileImage;
 
     const pageHeight = 295;
     let heightLeft = imgHeight;
 
     let position = 20;
+
     doc.addImage(imgData, 'PNG', 15, position, imgWidth, imgHeight);
     position = heightLeft - imgHeight + 15;
     heightLeft -= pageHeight;
