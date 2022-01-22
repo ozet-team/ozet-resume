@@ -64,8 +64,7 @@ const ResumePdf = () => {
       heightLeft -= pageHeight;
       console.log(heightLeft);
     }
-    //애니메이션 성능
-    //native 앱에서도 구분할 수 없는 자연
+
     doc.save('resume.pdf');
   };
 
