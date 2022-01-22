@@ -36,14 +36,14 @@ import {
   ResumeSnsLink,
   ResumeSubTitle,
   ResumeTerm,
-  ResumeWapper,
+  ResumeWrapper,
   StyledTable,
 } from './styled';
 import exProfileImg from '../../../img/profileImg.png';
 import './Resume.css';
 import ResumeCategoryBar from 'src/components/common/ResumeCategoryBar';
 import { useParams } from 'react-router-dom';
-import { resumeData, userInfoData } from '../../../api/ResumeData';
+// import { resumeData, userInfoData } from '../../../api/ResumeData';
 import InstagramImage from '../../../img/Instagram_logo.png';
 import InstagramTestImage from '../../../img/InstagramTestImage.svg';
 import Api from '../../../api/index';
@@ -51,10 +51,20 @@ import { imgAnimate, profileAnimate } from '../../common/Variants/Variants';
 import { useGetResume } from '../../../api/hooks/useGetResume';
 import {
   calculateDuration,
-  getFullduration,
+  changeDateYM,
+  changeDateYMD,
+  getFullDuration,
   getYearMonth,
 } from '../../../utils/hooks/calculateDuration';
 import { useGetUserInfo } from '../../../api/hooks/useGetUserInfo';
+import {
+  convertBirth,
+  convertMilitary,
+  convertPhoneNumber,
+  convertPosition,
+} from '../../../utils/hooks/convert';
+import { resumeDataType, userInfoDataType } from '../../../api/types';
+import CareerTable from '../../common/CareerTable';
 
 const ResumeWeb = () => {
   const tabs = [
@@ -81,34 +91,16 @@ const ResumeWeb = () => {
   const [toggle, setToggle] = useState<boolean>(false);
 
   const id = useParams<string>();
-
-  const careerDuration = (key: string) => {
-    const date = userInfoData.career.find(
-      (data) => data.position === key,
-    )?.duration;
-
-    const duration = getYearMonth(date as number);
-    switch (key) {
-      case 'STAFF':
-        return `인턴(스탭) ${duration}`;
-      case 'MANAGER':
-        return `매니저 ${duration}`;
-      case 'DESIGNER':
-        return `디자이너 ${duration}`;
-      case 'LEDGER':
-        return `원장 ${duration}`;
-    }
-  };
   useEffect(() => {
     Api.getJWT({ user_id: '9' });
   }, []);
   const jwtToken = localStorage.getItem('jwtToken');
-  if (jwtToken) {
-    const userInfo: any = useGetUserInfo();
-    console.log('userInfo', userInfo.data);
-    const resume: any = useGetResume();
-    console.log('userInfo', resume.data);
-  }
+
+  const userInfo: any = useGetUserInfo();
+  const userInfoData: userInfoDataType = userInfo.data;
+  const resume: any = useGetResume();
+  const resumeData: resumeDataType = resume.data;
+
   const checkID = async (key: string) => {
     switch (key) {
       case 'introduce':
@@ -132,7 +124,6 @@ const ResumeWeb = () => {
     modalAnimate = {
       unActive: {
         top: profileHeight,
-        // top: window.innerHeight - 60,
         transition: {
           duration: 0.5,
         },
@@ -148,12 +139,12 @@ const ResumeWeb = () => {
   }
   useEffect(() => {
     setProfileHeight(lastElement.current?.getBoundingClientRect().bottom);
-  }, [selectedTab]);
+  });
 
   return (
     <>
       {resumeData && userInfoData && (
-        <ResumeWapper>
+        <ResumeWrapper>
           <ResumeDetailWrapper
             variants={modalAnimate}
             animate={toggle ? 'active' : 'unActive'}
@@ -177,7 +168,7 @@ const ResumeWeb = () => {
                   <ResumeInnerWrapper>
                     <ResumeMargin ref={career} />
                     <ResumeSubTitle>
-                      경력 ({getFullduration(userInfoData.career)})
+                      경력 ({getFullDuration(userInfoData.career)})
                     </ResumeSubTitle>
                     <ResumeBr />
                     {resumeData.career.map((data: any) => (
@@ -185,8 +176,10 @@ const ResumeWeb = () => {
                         <ResumeDetailTitle>{data.company}</ResumeDetailTitle>
                         <ResumeSmallMargin />
                         <ResumeTerm>
-                          {data.joinAt} ~ {data.quitAt} (
-                          {calculateDuration(data.joinAt, data.quitAt)})
+                          {changeDateYM(data.joinAt)} ~{' '}
+                          {changeDateYM(data.quitAt)} (
+                          {calculateDuration(data.joinAt, data.quitAt)}) |{' '}
+                          {convertPosition(data.position)}
                         </ResumeTerm>
                         <ResumeSmallMargin />
                         <ResumeDetailText>{data.workedOn}</ResumeDetailText>
@@ -200,7 +193,9 @@ const ResumeWeb = () => {
                       <>
                         <ResumeDetailTitle>{data.name}</ResumeDetailTitle>
                         <ResumeSmallMargin />
-                        <ResumeTerm>{data.certificateAt}</ResumeTerm>
+                        <ResumeTerm>
+                          {changeDateYMD(data.certificateAt)}
+                        </ResumeTerm>
                         <ResumeSmallMargin />
                         <ResumeDetailText>{data.vendor}</ResumeDetailText>
                         <ResumeMargin />
@@ -214,7 +209,8 @@ const ResumeWeb = () => {
                         <ResumeDetailTitle>{data.major}</ResumeDetailTitle>
                         <ResumeSmallMargin />
                         <ResumeTerm>
-                          {data.joinAt} ~ {data.quitAt}
+                          {changeDateYM(data.joinAt)} ~{' '}
+                          {changeDateYM(data.quitAt)}
                         </ResumeTerm>
                         <ResumeMargin />
                       </>
@@ -223,10 +219,13 @@ const ResumeWeb = () => {
                     <ResumeSubTitle>병역</ResumeSubTitle>
                     <ResumeBr />
                     <ResumeDetailTitle>
-                      {resumeData.military.service}
+                      {convertMilitary(resumeData.military.service)}
                     </ResumeDetailTitle>
                     <ResumeSmallMargin />
-                    <ResumeTerm>{resumeData.military.quitAt}</ResumeTerm>
+                    <ResumeTerm>
+                      {changeDateYM(resumeData.military.joinAt)} ~{' '}
+                      {changeDateYM(resumeData.military.quitAt)}
+                    </ResumeTerm>
                     <ResumeSmallMargin />
                     <ResumeDetailText>
                       {resumeData.military.exemptionReason}
@@ -301,7 +300,7 @@ const ResumeWeb = () => {
               <ProfileHeaderInner>
                 <PcHeaderWrapper>
                   <ProfileNameWrapper>
-                    <ProfileNickname>{userInfoData.name}</ProfileNickname>
+                    <ProfileNickname>닉네임</ProfileNickname>
                     <ProfileName>{userInfoData.name}</ProfileName>
                   </ProfileNameWrapper>
                   <PcTableWrapper>
@@ -310,57 +309,22 @@ const ResumeWeb = () => {
                       <ProfileTableRow>
                         <ProfileCategory>경력</ProfileCategory>
                         <ProfileText>
-                          {userInfoData.career.length < 3 && (
-                            <ProfileWorkRow>
-                              {userInfoData.career.map((data, key) => (
-                                <>
-                                  <ResumeColumnBar
-                                    display={key == 0 && 'none'}
-                                  />
-                                  <div>{careerDuration(data.position)}</div>
-                                </>
-                              ))}
-                            </ProfileWorkRow>
-                          )}
-                          {userInfoData.career.length > 2 && (
-                            <>
-                              <ProfileWorkRow>
-                                {userInfoData.career
-                                  .slice(0, 2)
-                                  .map((data, key) => (
-                                    <>
-                                      <ResumeColumnBar
-                                        display={key == 0 && 'none'}
-                                      />
-                                      <div>{careerDuration(data.position)}</div>
-                                    </>
-                                  ))}
-                              </ProfileWorkRow>
-                              <ProfileWorkRow>
-                                {userInfoData.career
-                                  .slice(2, userInfoData.career.length)
-                                  .map((data, key) => (
-                                    <>
-                                      <ResumeColumnBar
-                                        display={key == 0 && 'none'}
-                                      />
-                                      <div>{careerDuration(data.position)}</div>
-                                    </>
-                                  ))}
-                              </ProfileWorkRow>
-                            </>
-                          )}
+                          <CareerTable career={userInfoData.career} />
                         </ProfileText>
                       </ProfileTableRow>
                       <ProfileTableRow>
                         <ProfileCategory>연락처</ProfileCategory>
-                        <ProfileText>{userInfoData.phoneNumber}</ProfileText>
+                        <ProfileText>
+                          {convertPhoneNumber(userInfoData.phoneNumber)}
+                        </ProfileText>
                       </ProfileTableRow>
                     </StyledTable>
                     <StyledTable margin={50}>
                       <ProfileTableRow>
                         <ProfileCategory>생년월일</ProfileCategory>
-                        <ProfileText>{userInfoData.birthday}</ProfileText>
+                        <ProfileText>
+                          {convertBirth(userInfoData.birthday)}
+                        </ProfileText>
                       </ProfileTableRow>
                       <ProfileTableRow>
                         <ProfileCategory>주소</ProfileCategory>
@@ -393,47 +357,20 @@ const ResumeWeb = () => {
                 <ProfileTableRow>
                   <ProfileCategory>경력</ProfileCategory>
                   <ProfileText>
-                    {userInfoData.career.length < 3 && (
-                      <ProfileWorkRow>
-                        {userInfoData.career.map((data, key) => (
-                          <>
-                            <ResumeColumnBar display={key == 0 && 'none'} />
-                            <div>{careerDuration(data.position)}</div>
-                          </>
-                        ))}
-                      </ProfileWorkRow>
-                    )}
-                    {userInfoData.career.length > 2 && (
-                      <>
-                        <ProfileWorkRow>
-                          {userInfoData.career.slice(0, 2).map((data, key) => (
-                            <>
-                              <ResumeColumnBar display={key == 0 && 'none'} />
-                              <div>{careerDuration(data.position)}</div>
-                            </>
-                          ))}
-                        </ProfileWorkRow>
-                        <ProfileWorkRow>
-                          {userInfoData.career
-                            .slice(2, userInfoData.career.length)
-                            .map((data, key) => (
-                              <>
-                                <ResumeColumnBar display={key == 0 && 'none'} />
-                                <div>{careerDuration(data.position)}</div>
-                              </>
-                            ))}
-                        </ProfileWorkRow>
-                      </>
-                    )}
+                    <CareerTable career={userInfoData.career} />
                   </ProfileText>
                 </ProfileTableRow>
                 <ProfileTableRow>
                   <ProfileCategory>연락처</ProfileCategory>
-                  <ProfileText>{userInfoData.phoneNumber}</ProfileText>
+                  <ProfileText>
+                    {convertPhoneNumber(userInfoData.phoneNumber)}
+                  </ProfileText>
                 </ProfileTableRow>
                 <ProfileTableRow>
                   <ProfileCategory>생년월일</ProfileCategory>
-                  <ProfileText>{userInfoData.birthday}</ProfileText>
+                  <ProfileText>
+                    {convertBirth(userInfoData.birthday)}
+                  </ProfileText>
                 </ProfileTableRow>
                 <ProfileTableRow>
                   <ProfileCategory>주소</ProfileCategory>
@@ -447,7 +384,7 @@ const ResumeWeb = () => {
             </ProfileTextWrapper>
             <div ref={lastElement} />
           </ProfileWrapper>
-        </ResumeWapper>
+        </ResumeWrapper>
       )}
     </>
   );

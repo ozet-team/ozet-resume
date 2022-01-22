@@ -1,8 +1,9 @@
 import { motion } from 'framer-motion';
 import styled from 'styled-components';
 
-export const ResumeWapper = styled.div`
+export const ResumeWrapper = styled.div`
   background: #f0f2f5;
+  font-family: 'Apple SD Gothic Neo', sans-serif;
 `;
 export const ProfileWrapper = styled.div`
   background: #f0f2f5;
@@ -19,6 +20,8 @@ export const ProfileWrapper = styled.div`
 export const ProfileImage = styled(motion.img)`
   height: 180px;
   width: 180px;
+  border: 0 solid;
+  border-radius: 70px;
   position: absolute;
 `;
 export const PcProfileImage = styled(motion.img)`
@@ -27,6 +30,8 @@ export const PcProfileImage = styled(motion.img)`
     display: flex;
     height: 170px;
     width: 170px;
+    border: 0 solid;
+    border-radius: 70px;
     //margin-left: 18px;
   }
 `;
@@ -164,6 +169,7 @@ export const ResumeModalInner = styled.div`
 export const ProfileWorkRow = styled.div`
   display: flex;
   align-items: center;
+  text-align: center;
   margin-bottom: 4px;
 `;
 export const ResumeColumnBar = styled.div<any>`
@@ -172,8 +178,11 @@ export const ResumeColumnBar = styled.div<any>`
   margin: 0 6px;
   background: black;
   display: ${(props) => props.display};
-  @media (min-width: 500px) {
+  @media (min-width: 600px) {
     height: 22px;
+  }
+  @media (min-width: 500px) {
+    height: 7px;
   }
 `;
 
@@ -280,7 +289,7 @@ export const ResumeSnsImage = styled.img`
   }
 `;
 
-export const ResumeDetailText = styled.div`
+export const ResumeDetailText = styled.p`
   font-size: 13px;
   font-weight: 400;
   @media (min-width: 500px) {

@@ -32,7 +32,8 @@ export type userInfoDataType = {
   ];
   career: [
     {
-      STAFF: number;
+      position: string;
+      duration: number;
     },
   ];
 };
