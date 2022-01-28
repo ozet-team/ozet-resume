@@ -16,11 +16,9 @@ import {
   ProfileTableRow,
   ProfileText,
   ProfileTextWrapper,
-  ProfileWorkRow,
   ProfileWrapper,
   ResumeBr,
   ResumeCategoryBarWrapper,
-  ResumeColumnBar,
   ResumeDetailInner,
   ResumeDetailText,
   ResumeDetailTitle,
@@ -39,7 +37,6 @@ import {
   ResumeWrapper,
   StyledTable,
 } from './styled';
-import exProfileImg from '../../../img/profileImg.png';
 import './Resume.css';
 import ResumeCategoryBar from 'src/components/common/ResumeCategoryBar';
 import { useParams } from 'react-router-dom';
@@ -54,7 +51,6 @@ import {
   changeDateYM,
   changeDateYMD,
   getFullDuration,
-  getYearMonth,
 } from '../../../utils/hooks/calculateDuration';
 import { useGetUserInfo } from '../../../api/hooks/useGetUserInfo';
 import {
@@ -86,23 +82,16 @@ const ResumeWeb = () => {
   const lastElement = useRef<HTMLDivElement>(null);
   const [selectedTab, setSelectedTab] = useState('career');
   const [profileHeight, setProfileHeight] = useState<number | undefined>(0);
-  // const [modalHeight, setModalHeight] = useState<number | undefined>(0);
-  // const [tabHeight, setTabHeight] = useState<number | undefined>(0);
   const [toggle, setToggle] = useState<boolean>(false);
 
   const id = useParams<string>();
-  useEffect(() => {
-    Api.getJWT({ user_id: '9' });
-  }, []);
 
-  const jwtToken = localStorage.getItem('jwtToken');
-
-  const userInfo: any = useGetUserInfo();
+  const userInfo: any = useGetUserInfo(id);
   const userInfoData: userInfoDataType = userInfo.data;
-  const resume: any = useGetResume();
+  const resume: any = useGetResume(id);
   const resumeData: resumeDataType = resume.data;
 
-  const checkID = async (key: string) => {
+  const checkID = (key: string) => {
     switch (key) {
       case 'introduce':
         return introduce.current?.offsetTop;

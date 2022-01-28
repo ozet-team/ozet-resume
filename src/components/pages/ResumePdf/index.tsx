@@ -1,4 +1,4 @@
-import React, { RefObject, useRef } from 'react';
+import React, { RefObject, useEffect, useRef } from 'react';
 import {
   PdfCareerInner,
   PdfCareerRowLeft,
@@ -22,7 +22,6 @@ import {
   PdfWorkedOn,
   PdfWrapper,
 } from './styled';
-import { resumeData, userInfoData } from '../../../api/ResumeData';
 import CareerTable from '../../common/CareerTable';
 import {
   convertBirth,
@@ -34,9 +33,22 @@ import {
 import { changeDateYM } from '../../../utils/hooks/calculateDuration';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
+import { useParams } from 'react-router-dom';
+import Api from '../../../api';
+import { useGetUserInfo } from '../../../api/hooks/useGetUserInfo';
+import { resumeDataType, userInfoDataType } from '../../../api/types';
+import { useGetResume } from '../../../api/hooks/useGetResume';
 
 const ResumePdf = () => {
-  const resume = useRef<HTMLDivElement>(null);
+  const resumeRef = useRef<HTMLDivElement>(null);
+
+  const id = useParams<string>();
+
+  const userInfo: any = useGetUserInfo(id);
+  const userInfoData: userInfoDataType = userInfo.data;
+  const resume: any = useGetResume(id);
+  const resumeData: resumeDataType = resume.data;
+
   const profileImg = new Image();
   const getPdf = async () => {
     const element = resume.current;
@@ -75,7 +87,7 @@ const ResumePdf = () => {
           getPdf();
         }}
       />
-      <PdfInner ref={resume}>
+      <PdfInner ref={resumeRef}>
         <PdfProfileWrapper>
           <PdfProfileInner>
             <PdfResume>RESUME</PdfResume>

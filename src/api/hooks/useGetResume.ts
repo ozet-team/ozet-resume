@@ -1,14 +1,14 @@
 import useSWR from 'swr';
 import Api from '../index';
 
-async function getResume() {
-  const res = await Api.getResume();
+async function getResume(id: string) {
+  const res = await Api.getResume(id);
   return res.data;
 }
 
-export function useGetResume() {
+export function useGetResume(id: string) {
   const { data: resumeData, error: resumeError } = useSWR(
-    [`/member/user/me/resume`],
+    [`/member/user/me/resume`, id],
     getResume,
   );
   return {
