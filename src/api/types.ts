@@ -11,6 +11,11 @@ export type userData = {
   };
   token: string;
 };
+export type instagramDataType = {
+  id: number;
+  social: string;
+  socialKey: string;
+};
 export type userInfoDataType = {
   username: string;
   name: string;

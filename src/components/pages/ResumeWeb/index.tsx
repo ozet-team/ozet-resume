@@ -84,7 +84,7 @@ const ResumeWeb = () => {
   const [profileHeight, setProfileHeight] = useState<number | undefined>(0);
   const [toggle, setToggle] = useState<boolean>(false);
 
-  const id = useParams<string>();
+  const { id }: any = useParams<string>();
 
   const userInfo: any = useGetUserInfo(id);
   const userInfoData: userInfoDataType = userInfo.data;

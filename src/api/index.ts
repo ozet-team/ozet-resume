@@ -1,5 +1,10 @@
 import axios from 'axios';
-import { resumeDataType, userData, userInfoDataType } from './types';
+import {
+  instagramDataType,
+  resumeDataType,
+  userData,
+  userInfoDataType,
+} from './types';
 
 export class ResumeApi {
   private API: string;
@@ -8,10 +13,13 @@ export class ResumeApi {
   }
 
   getUserInfo = (id: string) => {
-    return axios.get<userInfoDataType>(`${this.API}/member/user/me/${id}`);
+    return axios.get<userInfoDataType>(`${this.API}${id}`);
   };
   getResume = (id: string) => {
-    return axios.get<resumeDataType>(`${this.API}/member/user/me/resume/${id}`);
+    return axios.get<resumeDataType>(`${this.API}${id}`);
+  };
+  getInstagramImage = (url: string) => {
+    return axios.get<instagramDataType>(`${url}`);
   };
   getJWT = (payload: { user_id: string }) => {
     return axios
