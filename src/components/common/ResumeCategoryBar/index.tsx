@@ -8,7 +8,7 @@ interface Props {
   selectedTab: string;
   setSelectedTab: (id: string) => void;
   profileDetail: any;
-  checkID: (key: string) => any;
+  checkID: (key: string) => number | undefined;
 }
 
 const ResumeCategoryBar = ({
@@ -29,12 +29,10 @@ const ResumeCategoryBar = ({
               className={item.id === selectedTab ? 'selected' : ''}
               onClick={() => {
                 setSelectedTab(item.id);
-                checkID(item.id).then((data: any) =>
-                  profileDetail.current.scrollTo({
-                    top: data,
-                    behavior: 'smooth',
-                  }),
-                );
+                profileDetail.current.scrollTo({
+                  top: checkID(item.id),
+                  behavior: 'smooth',
+                });
               }}
             >
               {item.label}

@@ -90,7 +90,6 @@ const ResumeWeb = () => {
   const userInfoData: userInfoDataType = userInfo.data;
   const resume: any = useGetResume(id);
   const resumeData: resumeDataType = resume.data;
-
   const checkID = (key: string) => {
     switch (key) {
       case 'introduce':
@@ -236,42 +235,41 @@ const ResumeWeb = () => {
                       </ResumeDetailText>
                     </ResumeSnsLink>
                     {/*SNS 이미지*/}
-                    {userInfoData.snsList.length > 4 ? (
-                      <>
-                        <ImageListWrapper>
-                          {userInfoData.snsList.map(
-                            (
-                              data: {
-                                username: string;
-                                url: string;
-                              },
-                              id: number,
-                            ) => (
-                              <ResumeImageWrapper key={id}>
-                                <ResumeSnsImage
-                                  width={'100px'}
-                                  src={data.url}
-                                />
-                              </ResumeImageWrapper>
-                            ),
-                          )}
-                        </ImageListWrapper>
-                      </>
-                    ) : (
-                      <>
-                        <ImageListWrapperLess>
-                          {userInfoData.snsList.map((data: any, id: any) => (
-                            <ImageListWrapperLess key={id}>
-                              <ResumeSnsImage
-                                width={'100%'}
-                                src={InstagramTestImage}
-                              />
-                            </ImageListWrapperLess>
-                          ))}
-                        </ImageListWrapperLess>
-                      </>
-                    )}
-
+                    {/*{userInfoData.snsList.length > 4 ? (*/}
+                    {/*  <>*/}
+                    {/*    <ImageListWrapper>*/}
+                    {/*      {userInfoData.snsList.map(*/}
+                    {/*        (*/}
+                    {/*          data: {*/}
+                    {/*            username: string;*/}
+                    {/*            url: string;*/}
+                    {/*          },*/}
+                    {/*          id: number,*/}
+                    {/*        ) => (*/}
+                    {/*          <ResumeImageWrapper key={id}>*/}
+                    {/*            <ResumeSnsImage*/}
+                    {/*              width={'100px'}*/}
+                    {/*              src={data.url}*/}
+                    {/*            />*/}
+                    {/*          </ResumeImageWrapper>*/}
+                    {/*        ),*/}
+                    {/*      )}*/}
+                    {/*    </ImageListWrapper>*/}
+                    {/*  </>*/}
+                    {/*) : (*/}
+                    {/*  <>*/}
+                    {/*    <ImageListWrapperLess>*/}
+                    {/*      {userInfoData.snsList.map((data: any, id: any) => (*/}
+                    {/*        <ImageListWrapperLess key={id}>*/}
+                    {/*          <ResumeSnsImage*/}
+                    {/*            width={'100%'}*/}
+                    {/*            src={InstagramTestImage}*/}
+                    {/*          />*/}
+                    {/*        </ImageListWrapperLess>*/}
+                    {/*      ))}*/}
+                    {/*    </ImageListWrapperLess>*/}
+                    {/*  </>*/}
+                    {/*)}*/}
                     <ResumeMargin />
                     <ResumeMargin />
                     <ResumeMargin />
