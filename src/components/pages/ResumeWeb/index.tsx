@@ -90,6 +90,7 @@ const ResumeWeb = () => {
   const userInfoData: userInfoDataType = userInfo.data;
   const resume: any = useGetResume(id);
   const resumeData: resumeDataType = resume.data;
+  console.log(userInfoData);
   const checkID = (key: string) => {
     switch (key) {
       case 'introduce':
