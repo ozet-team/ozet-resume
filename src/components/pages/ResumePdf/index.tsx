@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useEffect } from 'react';
 import {
   PdfCareerInner,
   PdfCareerRowLeft,
@@ -31,53 +31,28 @@ import {
   locationConvert,
 } from '../../../utils/hooks/convert';
 import { changeDateYM } from '../../../utils/hooks/calculateDuration';
-import { useParams } from 'react-router-dom';
 import { useGetUserInfo } from '../../../api/hooks/useGetUserInfo';
 import { useGetResume } from '../../../api/hooks/useGetResume';
+import API from '../../../api/index';
+import { resumeDataType, userInfoDataType } from '../../../api/types';
 
-const ResumePdf = () => {
-  const resumeRef = useRef<HTMLDivElement>(null);
+interface ResumeProps {
+  userInfoData: userInfoDataType;
+  resumeData: resumeDataType;
+}
 
-  const { id } = useParams<{ id: string }>();
+const ResumePdf: React.FC<ResumeProps> = ({ userInfoData, resumeData }) => {
+  // const { userInfoData } = useGetUserInfo(id);
+  // const { resumeData } = useGetResume(id);
 
-  const { userInfoData } = useGetUserInfo(id);
-  const { resumeData } = useGetResume(id);
-
-  // const profileImg = new Image();
-  // const getPdf = async () => {
-  //   const element = resume.current;
-  //   const canvas = await html2canvas(element as HTMLDivElement);
-  //
-  //   const doc = new jsPDF('p', 'mm', 'a4');
-  //   const imgWidth = 180;
-  //   const imgHeight = (canvas.height * imgWidth) / canvas.width;
-  //   const imgData = canvas.toDataURL('image/png');
-  //   profileImg.src = userInfoData.profileImage;
-  //
-  //   const pageHeight = 295;
-  //   let heightLeft = imgHeight;
-  //
-  //   let position = 20;
-  //
-  //   doc.addImage(imgData, 'PNG', 15, position, imgWidth, imgHeight);
-  //   position = heightLeft - imgHeight + 15;
-  //   heightLeft -= pageHeight;
-  //   while (heightLeft >= 20) {
-  //     position = heightLeft - imgHeight + 15;
-  //     doc.addPage();
-  //     doc.addImage(imgData, 'PNG', 15, position, imgWidth, imgHeight);
-  //
-  //     heightLeft -= pageHeight;
-  //     console.log(heightLeft);
-  //   }
-  //
-  //   doc.save('resume.pdf');
-  // };
+  useEffect(() => {
+    API.getJWT({ user_id: '9' });
+  }, []);
 
   return (
     <PdfWrapper>
       {userInfoData && resumeData && (
-        <PdfInner ref={resumeRef}>
+        <PdfInner>
           <PdfProfileWrapper>
             <PdfProfileInner>
               <PdfResume>RESUME</PdfResume>
@@ -164,11 +139,11 @@ const ResumePdf = () => {
           </PdfCareerWrapper>
           <PdfCategory>SNS</PdfCategory>
           <PdfHr marginTop={6} />
-          <PdfCareerWrapper>
-            {userInfoData.snsList.map((data, id) => (
-              <img key={id} src={data.url} />
-            ))}
-          </PdfCareerWrapper>
+          {/*<PdfCareerWrapper>*/}
+          {/*  {userInfoData.snsList.map((data, id) => (*/}
+          {/*    <img key={id} src={data.url} />*/}
+          {/*  ))}*/}
+          {/*</PdfCareerWrapper>*/}
         </PdfInner>
       )}
     </PdfWrapper>

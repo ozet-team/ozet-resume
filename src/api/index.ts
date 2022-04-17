@@ -28,9 +28,19 @@ export class ResumeApi {
       },
     );
   };
+  postResumeHTML = (payload: { html: string }) => {
+    return axios.patch(`${this.API}/member/user/me/resume/pdf/`, payload, {
+      headers: {
+        Authorization: `JWT ${localStorage.getItem('jwtToken')}`,
+      },
+    });
+  };
   getJWT = (payload: { user_id: string }) => {
     return axios
-      .post<userData>(`${this.API}/member/auth/passcode/pass`, payload)
+      .post<{ token: string }>(
+        `${this.API}/member/auth/passcode/pass/`,
+        payload,
+      )
       .then((res) => {
         const token = res.data.token;
         localStorage.setItem('jwtToken', token);
