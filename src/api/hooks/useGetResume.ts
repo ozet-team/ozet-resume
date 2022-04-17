@@ -8,12 +8,11 @@ async function getResume(id: string) {
 
 export function useGetResume(id: string) {
   const { data: resumeData, error: resumeError } = useSWR(
-    [`/member/user/${id}/resume`],
+    [id, `/member/user/${id}/resume`],
     getResume,
   );
   return {
-    data: resumeData && resumeData,
-    resumeError,
-    loading: !resumeError && !resumeError,
+    resumeData: resumeData && resumeData,
+    error: !resumeError && !resumeError,
   };
 }

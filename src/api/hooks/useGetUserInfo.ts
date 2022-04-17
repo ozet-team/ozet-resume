@@ -6,13 +6,12 @@ async function getUserInfo(id: string) {
   return res.data;
 }
 export function useGetUserInfo(id: string) {
-  const { data: userInfoData, error: userInfoError } = useSWR(
-    [`/member/user/${id}/`],
+  const { data: userInfoData, error } = useSWR(
+    [id, `/member/user/${id}`],
     getUserInfo,
   );
   return {
-    data: userInfoData && userInfoData,
-    userInfoError,
-    loading: !userInfoError && !userInfoError,
+    userInfoData: userInfoData && userInfoData,
+    error: !error && !error,
   };
 }

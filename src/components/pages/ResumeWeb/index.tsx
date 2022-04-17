@@ -1,7 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
 import {
-  ImageListWrapper,
-  ImageListWrapperLess,
   PcHeaderWrapper,
   PcProfileImage,
   PcTableWrapper,
@@ -23,14 +21,12 @@ import {
   ResumeDetailText,
   ResumeDetailTitle,
   ResumeDetailWrapper,
-  ResumeImageWrapper,
   ResumeInnerWrapper,
   ResumeInstagramLogo,
   ResumeMargin,
   ResumeModalInner,
   ResumeModalWrapper,
   ResumeSmallMargin,
-  ResumeSnsImage,
   ResumeSnsLink,
   ResumeSubTitle,
   ResumeTerm,
@@ -42,8 +38,6 @@ import ResumeCategoryBar from 'src/components/common/ResumeCategoryBar';
 import { useParams } from 'react-router-dom';
 // import { resumeData, userInfoData } from '../../../api/ResumeData';
 import InstagramImage from '../../../img/Instagram_logo.png';
-import InstagramTestImage from '../../../img/InstagramTestImage.svg';
-import Api from '../../../api/index';
 import { imgAnimate, profileAnimate } from '../../common/Variants/Variants';
 import { useGetResume } from '../../../api/hooks/useGetResume';
 import {
@@ -59,19 +53,17 @@ import {
   convertPhoneNumber,
   convertPosition,
 } from '../../../utils/hooks/convert';
-import { resumeDataType, userInfoDataType } from '../../../api/types';
 import CareerTable from '../../common/CareerTable';
 
+const tabs = [
+  { label: '경력', id: 'career' },
+  { label: '자격증', id: 'certificate' },
+  { label: '학력', id: 'academic' },
+  { label: '병역', id: 'military' },
+  { label: '자기소개', id: 'introduce' },
+  { label: 'SNS', id: 'sns' },
+];
 const ResumeWeb = () => {
-  const tabs = [
-    { label: '경력', id: 'career' },
-    { label: '자격증', id: 'certificate' },
-    { label: '학력', id: 'academic' },
-    { label: '병역', id: 'military' },
-    { label: '자기소개', id: 'introduce' },
-    { label: 'SNS', id: 'sns' },
-  ];
-
   const profileDetail = useRef<HTMLDivElement>(null);
   const introduce = useRef<HTMLDivElement>(null);
   const career = useRef<HTMLDivElement>(null);
@@ -80,35 +72,30 @@ const ResumeWeb = () => {
   const military = useRef<HTMLDivElement>(null);
   const sns = useRef<HTMLDivElement>(null);
   const lastElement = useRef<HTMLDivElement>(null);
+
   const [selectedTab, setSelectedTab] = useState('career');
   const [profileHeight, setProfileHeight] = useState<number | undefined>(0);
   const [toggle, setToggle] = useState<boolean>(false);
 
-  const { id }: any = useParams<string>();
+  const { id } = useParams<{ id: string }>();
 
-  const userInfo: any = useGetUserInfo(id);
-  const userInfoData: userInfoDataType = userInfo.data;
-  const resume: any = useGetResume(id);
-  const resumeData: resumeDataType = resume.data;
-  console.log(userInfoData);
-  const checkID = (key: string) => {
-    switch (key) {
-      case 'introduce':
-        return introduce.current?.offsetTop;
-      case 'career':
-        return career.current?.offsetTop;
-      case 'certificate':
-        return certificate.current?.offsetTop;
-      case 'academic':
-        return academic.current?.offsetTop;
-      case 'military':
-        return military.current?.offsetTop;
-      case 'sns':
-        return sns.current?.offsetTop;
-    }
+  const { userInfoData } = useGetUserInfo(id);
+  const { resumeData } = useGetResume(id);
+
+  const elementOffsetTop = {
+    introduce: introduce.current?.offsetTop,
+    career: career.current?.offsetTop,
+    certificate: certificate.current?.offsetTop,
+    academic: academic.current?.offsetTop,
+    military: military.current?.offsetTop,
+    sns: sns.current?.offsetTop,
   };
 
-  let modalAnimate = {};
+  const checkID = (key: string) => {
+    return elementOffsetTop[key as keyof typeof elementOffsetTop];
+  };
+
+  let modalAnimate;
   const isMobile = window.innerWidth < 500;
   if (isMobile) {
     modalAnimate = {
@@ -143,6 +130,7 @@ const ResumeWeb = () => {
               setToggle(true);
             }}
           >
+            {/* detailDataModal */}
             <ResumeModalWrapper>
               <ResumeModalInner>
                 <ResumeCategoryBarWrapper>
@@ -279,6 +267,7 @@ const ResumeWeb = () => {
               </ResumeModalInner>
             </ResumeModalWrapper>
           </ResumeDetailWrapper>
+          {/* profile */}
           <ProfileWrapper
             className={'Profile'}
             onClick={() => {

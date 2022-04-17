@@ -13,13 +13,20 @@ export class ResumeApi {
   }
 
   getUserInfo = (id: string) => {
-    return axios.get<userInfoDataType>(`${this.API}${id}`);
+    return axios.get<userInfoDataType>(`${this.API}/member/user/${id}`);
   };
   getResume = (id: string) => {
-    return axios.get<resumeDataType>(`${this.API}${id}`);
+    return axios.get<resumeDataType>(`${this.API}/member/user/${id}/resume`);
   };
-  getInstagramImage = (url: string) => {
-    return axios.get<instagramDataType>(`${url}`);
+  getInstagramImage = (token: string) => {
+    return axios.get<instagramDataType>(
+      `https://api.instagram.com/v1/users/self/media/recent/?access_token=${token}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      },
+    );
   };
   getJWT = (payload: { user_id: string }) => {
     return axios
