@@ -1,0 +1,104 @@
+.PdfWrapper{
+    font-family: 'Apple SD Gothic Neo', sans-serif;
+    padding: 40px 50px;
+}
+.PdfInner{
+    width: 100%;
+    max-width: 595px;
+    margin: auto;
+}
+.PdfProfileWrapper{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 16px;
+}
+.PdfProfileInner{
+    display: flex;
+    flex-direction: column;
+}
+.PdfResume{
+    font-size: 10px;
+    color: #939497;
+    margin-bottom: 35px;
+}
+.PdfNickname{
+    font-size: 10px;
+    margin-bottom: 1px;
+}
+.PdfName{
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 18px;
+}
+.PdfProfileText{
+    font-size: 9px;
+    padding-bottom: 9px;
+    width: 100%;
+    display: flex;
+}
+.PdfLeftDetail{
+    margin-right: 34px
+}.PdfDetailElement{
+     margin-bottom: 6px;
+ }
+ .PdfProfileImage{
+     height: 126px;
+     width: 126px;
+     border: 0 solid;
+     border-radius: 70px;
+ }
+ .PdfCategory{
+     font-size: 12px;
+     font-weight: 600;
+     margin-top: 24px;
+
+ }
+.PdfCategory:first-child {
+    margin-top: 0;
+}
+.PdfCareerWrapper{
+    display: flex;
+    flex-direction: column;
+}
+.PdfCareerInner{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+.PdfPosition{
+    font-size: 10px;
+    font-weight: 600;
+    margin-bottom: 6px;
+}
+.PdfCareerRowLeft{
+    min-width: 108px;
+}
+.PdfDuration{
+    font-size: 9px;
+    font-weight: 600;
+    color: #858585;
+    margin-bottom: 6px;
+}
+.PdfCareerRowRight{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+.PdfCompany{
+    font-size: 10px;
+    font-weight: 600;
+    margin-bottom: 6px;
+}
+.PdfWorkedOn{
+    font-size: 8px;
+    color: #373737;
+    margin-bottom: 6px;
+}
+.PdfHr{
+    height: 1px;
+    opacity: 10%;
+    background: black;
+    margin-top: 6px;
+    margin-bottom: 12px;
+}

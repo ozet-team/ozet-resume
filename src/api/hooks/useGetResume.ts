@@ -1,7 +1,7 @@
 import useSWR from 'swr';
 import Api from '../index';
 
-async function getResume(id: string) {
+export async function getResume(id: string) {
   const res = await Api.getResume(id);
   return res.data;
 }

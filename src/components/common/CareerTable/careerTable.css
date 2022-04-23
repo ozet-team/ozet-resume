@@ -1,0 +1,22 @@
+.ProfileWorkRow{
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin-bottom: 4px;
+}
+.ResumeColumnBar{
+    width: 1px;
+    height: 11px;
+    margin: 0 6px;
+    background: black;
+}
+@media (min-width: 600px) {
+    .ResumeColumnBar {
+        height: 22px;
+    }
+}
+@media (min-width: 500px) {
+    .ResumeColumnBar {
+        height: 7px;
+    }
+}

@@ -1,27 +1,4 @@
 import React, { useEffect } from 'react';
-import {
-  PdfCareerInner,
-  PdfCareerRowLeft,
-  PdfCareerRowRight,
-  PdfCareerWrapper,
-  PdfCategory,
-  PdfCompany,
-  PdfDetailElement,
-  PdfDuration,
-  PdfHr,
-  PdfInner,
-  PdfLeftDetail,
-  PdfName,
-  PdfNickname,
-  PdfPosition,
-  PdfProfileImage,
-  PdfProfileInner,
-  PdfProfileText,
-  PdfProfileWrapper,
-  PdfResume,
-  PdfWorkedOn,
-  PdfWrapper,
-} from './styled';
 import CareerTable from '../../common/CareerTable';
 import {
   convertBirth,
@@ -31,10 +8,10 @@ import {
   locationConvert,
 } from '../../../utils/hooks/convert';
 import { changeDateYM } from '../../../utils/hooks/calculateDuration';
-import { useGetUserInfo } from '../../../api/hooks/useGetUserInfo';
-import { useGetResume } from '../../../api/hooks/useGetResume';
 import API from '../../../api/index';
 import { resumeDataType, userInfoDataType } from '../../../api/types';
+import { resumeData, userInfoData } from '../../../api/ResumeData';
+import './resumePdf.css';
 
 interface ResumeProps {
   userInfoData: userInfoDataType;
@@ -50,103 +27,109 @@ const ResumePdf: React.FC<ResumeProps> = ({ userInfoData, resumeData }) => {
   }, []);
 
   return (
-    <PdfWrapper>
+    <div className={'PdfWrapper'}>
       {userInfoData && resumeData && (
-        <PdfInner>
-          <PdfProfileWrapper>
-            <PdfProfileInner>
-              <PdfResume>RESUME</PdfResume>
-              <PdfNickname>닉네임</PdfNickname>
-              <PdfName>{userInfoData.name}</PdfName>
-              <PdfProfileText>
-                <PdfLeftDetail>
+        <div className={'PdfInner'}>
+          <div className={'PdfProfileWrapper'}>
+            <div className={'PdfProfileInner'}>
+              <div className={'PdfResume'}>RESUME</div>
+              <div className={'PdfNickname'}>닉네임</div>
+              <div className={'PdfName'}>{userInfoData.name}</div>
+              <div className={'PdfProfileText'}>
+                <div className={'PdfLeftDetail'}>
                   <CareerTable career={userInfoData.career} />
-                  <PdfDetailElement>
+                  <div className={'PdfDetailElement'}>
                     {convertPhoneNumber(userInfoData.phoneNumber)}
-                  </PdfDetailElement>
-                </PdfLeftDetail>
-                <div>
-                  <PdfDetailElement>
-                    {convertBirth(userInfoData.birthday)}
-                  </PdfDetailElement>
-                  <PdfDetailElement>
-                    {locationConvert(userInfoData.address)}
-                  </PdfDetailElement>
-                  <PdfDetailElement>
-                    @{userInfoData.snsAddress}
-                  </PdfDetailElement>
+                  </div>
                 </div>
-              </PdfProfileText>
-            </PdfProfileInner>
-            <PdfProfileImage src={userInfoData.profileImage} />
-          </PdfProfileWrapper>
-          <PdfCategory>경력</PdfCategory>
-          <PdfHr marginTop={6} />
-          <PdfCareerWrapper>
+                <div>
+                  <div className={'PdfDetailElement'}>
+                    {convertBirth(userInfoData.birthday)}
+                  </div>
+                  <div className={'PdfDetailElement'}>
+                    {locationConvert(userInfoData.address)}
+                  </div>
+                  <div className={'PdfDetailElement'}>
+                    @{userInfoData.snsAddress}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <img
+              className={'PdfProfileImage'}
+              src={userInfoData.profileImage}
+            />
+          </div>
+          <div className={'PdfCategory'}>경력</div>
+          <hr className={'PdfHr'} />
+          <div className={'PdfCareerWrapper'}>
             {resumeData.career.map((data, id) => (
-              <PdfCareerInner key={id}>
-                <PdfCareerRowLeft>
-                  <PdfPosition>{convertPosition(data.position)}</PdfPosition>
-                  <PdfDuration>
+              <div className={'PdfCareerInner'} key={id}>
+                <div className={'PdfCareerRowLeft'}>
+                  <div className={'PdfPosition'}>
+                    {convertPosition(data.position)}
+                  </div>
+                  <div className={'PdfDuration'}>
                     {changeDateYM(data.joinAt)} ~ {changeDateYM(data.quitAt)}
-                  </PdfDuration>
-                </PdfCareerRowLeft>
-                <PdfCareerRowRight>
-                  <PdfCompany>{data.company}</PdfCompany>
-                  <PdfWorkedOn>{data.workedOn}</PdfWorkedOn>
-                  <PdfHr
-                    marginTop={6}
-                    display={resumeData.career.length - 1 == id && 'none'}
-                  />
-                </PdfCareerRowRight>
-              </PdfCareerInner>
+                  </div>
+                </div>
+                <div className={'PdfCareerRowRight'}>
+                  <div className="PdfCompany">{data.company}</div>
+                  <div className={'PdfWorkedOn'}>{data.workedOn}</div>
+                  {resumeData.career.length - 1 !== id && (
+                    <hr className={'PdfHr'} />
+                  )}
+                </div>
+              </div>
             ))}
-          </PdfCareerWrapper>
-          <PdfCategory>자격증</PdfCategory>
-          <PdfHr marginTop={6} />
-          <PdfCareerWrapper>
+          </div>
+          <div className={'PdfCategory'}>자격증</div>
+          <hr className={'PdfHr'} />
+          <div className={'PdfCareerWrapper'}>
             {resumeData.certificate.map((data) => (
               <>
-                <PdfCompany>{data.name}</PdfCompany>
-                <PdfDuration>{data.certificateAt}</PdfDuration>
+                <div className={'PdfCompany'}>{data.name}</div>
+                <div className={'PdfDuration'}>{data.certificateAt}</div>
               </>
             ))}
-          </PdfCareerWrapper>
-          <PdfCategory>학력</PdfCategory>
-          <PdfHr marginTop={6} />
-          <PdfCareerWrapper>
+          </div>
+          <div className={'PdfCategory'}>학력</div>
+          <hr className={'PdfHr'} />
+          <div className={'PdfCareerWrapper'}>
             {resumeData.academic.map((data) => (
               <>
-                <PdfCompany>{data.major}</PdfCompany>
-                <PdfDuration>
+                <div className={'PdfCompany'}>{data.major}</div>
+                <div className={'PdfDuration'}>
                   {changeDateYM(data.joinAt)} ~ {changeDateYM(data.quitAt)}
-                </PdfDuration>
+                </div>
               </>
             ))}
-          </PdfCareerWrapper>
-          <PdfCategory>병역</PdfCategory>
-          <PdfHr marginTop={6} />
-          <PdfCareerWrapper>
-            <PdfCompany>
+          </div>
+          <div className={'PdfCategory'}>병역</div>
+          <hr className={'PdfHr'} />
+          <div className={'PdfCareerWrapper'}>
+            <div className={'PdfCompany'}>
               {convertMilitary(resumeData.military.service)}
-            </PdfCompany>
-            <PdfWorkedOn>{resumeData.military.exemptionReason}</PdfWorkedOn>
-          </PdfCareerWrapper>
-          <PdfCategory>자기소개</PdfCategory>
-          <PdfHr marginTop={6} />
-          <PdfCareerWrapper>
-            <PdfWorkedOn>{userInfoData.introduce}</PdfWorkedOn>
-          </PdfCareerWrapper>
-          <PdfCategory>SNS</PdfCategory>
-          <PdfHr marginTop={6} />
+            </div>
+            <div className={'PdfWorkedOn'}>
+              {resumeData.military.exemptionReason}
+            </div>
+          </div>
+          <div className={'PdfCategory'}>자기소개</div>
+          <hr className={'PdfHr'} />
+          <div className={'PdfCareerWrapper'}>
+            <div className={'PdfWorkedOn'}>{userInfoData.introduce}</div>
+          </div>
+          <div className="PdfCategory">SNS</div>
+          <hr className={'PdfHr'} />
           {/*<PdfCareerWrapper>*/}
           {/*  {userInfoData.snsList.map((data, id) => (*/}
           {/*    <img key={id} src={data.url} />*/}
           {/*  ))}*/}
           {/*</PdfCareerWrapper>*/}
-        </PdfInner>
+        </div>
       )}
-    </PdfWrapper>
+    </div>
   );
 };
 

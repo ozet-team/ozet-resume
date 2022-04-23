@@ -1,7 +1,7 @@
 import useSWR from 'swr';
 import Api from '../index';
 
-async function getUserInfo(id: string) {
+export async function getUserInfo(id: string) {
   const res = await Api.getUserInfo(id);
   return res.data;
 }

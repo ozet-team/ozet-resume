@@ -39,14 +39,14 @@ import { useParams } from 'react-router-dom';
 // import { resumeData, userInfoData } from '../../../api/ResumeData';
 import InstagramImage from '../../../img/Instagram_logo.png';
 import { imgAnimate, profileAnimate } from '../../common/Variants/Variants';
-import { useGetResume } from '../../../api/hooks/useGetResume';
+import { getResume, useGetResume } from '../../../api/hooks/useGetResume';
 import {
   calculateDuration,
   changeDateYM,
   changeDateYMD,
   getFullDuration,
 } from '../../../utils/hooks/calculateDuration';
-import { useGetUserInfo } from '../../../api/hooks/useGetUserInfo';
+import { getUserInfo, useGetUserInfo } from '../../../api/hooks/useGetUserInfo';
 import {
   convertBirth,
   convertMilitary,
@@ -54,7 +54,10 @@ import {
   convertPosition,
 } from '../../../utils/hooks/convert';
 import CareerTable from '../../common/CareerTable';
-
+import ReactDOMServer from 'react-dom/server';
+import ResumePdf from '../ResumePdf';
+import API from '../../../api/index';
+import { htmlConvert } from '../../../utils/hooks/htmlConvert';
 const tabs = [
   { label: '경력', id: 'career' },
   { label: '자격증', id: 'certificate' },
@@ -76,6 +79,7 @@ const ResumeWeb = () => {
   const [selectedTab, setSelectedTab] = useState('career');
   const [profileHeight, setProfileHeight] = useState<number | undefined>(0);
   const [toggle, setToggle] = useState<boolean>(false);
+  const [html, setHtml] = useState<string>('');
 
   const { id } = useParams<{ id: string }>();
 
@@ -117,6 +121,17 @@ const ResumeWeb = () => {
   useEffect(() => {
     setProfileHeight(lastElement.current?.getBoundingClientRect().bottom);
   });
+
+  const postHTML = async () => {
+    const userData = await getUserInfo(id);
+    console.log(userData);
+    const resume = await getResume(id);
+    console.log(htmlConvert(userData, resume));
+  };
+
+  useEffect(() => {
+    postHTML();
+  }, []);
 
   return (
     <>

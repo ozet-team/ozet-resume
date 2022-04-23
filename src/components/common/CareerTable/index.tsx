@@ -2,6 +2,7 @@ import React from 'react';
 import { userInfoData } from '../../../api/ResumeData';
 import { ProfileWorkRow, ResumeColumnBar } from '../../pages/ResumeWeb/styled';
 import { getYearMonth } from '../../../utils/hooks/calculateDuration';
+import './careerTable.css';
 
 interface props {
   career: { position: string; duration: number }[];
@@ -27,33 +28,33 @@ const CareerTable = (props: props) => {
   return (
     <>
       {career.length < 3 && (
-        <ProfileWorkRow>
+        <div className={'ProfileWorkRow'}>
           {career.map((data, key) => (
             <>
-              <ResumeColumnBar display={key == 0 && 'none'} />
+              {key !== 0 && <div className="ResumeColumnBar" />}
               <div>{careerDuration(data.position)}</div>
             </>
           ))}
-        </ProfileWorkRow>
+        </div>
       )}
       {career.length > 2 && (
         <>
-          <ProfileWorkRow>
+          <div className={'ProfileWorkRow'}>
             {career.slice(0, 2).map((data, key) => (
               <>
-                <ResumeColumnBar display={key == 0 && 'none'} />
+                {key !== 0 && <div className="ResumeColumnBar" />}
                 <div>{careerDuration(data.position)}</div>
               </>
             ))}
-          </ProfileWorkRow>
-          <ProfileWorkRow>
+          </div>
+          <div className={'ProfileWorkRow'}>
             {career.slice(2, userInfoData.career.length).map((data, key) => (
               <>
-                <ResumeColumnBar display={key == 0 && 'none'} />
+                {key !== 0 && <div className="ResumeColumnBar" />}
                 <div>{careerDuration(data.position)}</div>
               </>
             ))}
-          </ProfileWorkRow>
+          </div>
         </>
       )}
     </>
