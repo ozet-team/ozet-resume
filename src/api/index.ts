@@ -28,7 +28,7 @@ export class ResumeApi {
       },
     );
   };
-  postResumeHTML = (payload: { html: string }) => {
+  updateResumeHTML = (payload: { html: string }) => {
     return axios.patch(`${this.API}/member/user/me/resume/pdf/`, payload, {
       headers: {
         Authorization: `JWT ${localStorage.getItem('jwtToken')}`,

@@ -36,7 +36,6 @@ import {
 import './Resume.css';
 import ResumeCategoryBar from 'src/components/common/ResumeCategoryBar';
 import { useParams } from 'react-router-dom';
-// import { resumeData, userInfoData } from '../../../api/ResumeData';
 import InstagramImage from '../../../img/Instagram_logo.png';
 import { imgAnimate, profileAnimate } from '../../common/Variants/Variants';
 import { getResume, useGetResume } from '../../../api/hooks/useGetResume';
@@ -54,10 +53,9 @@ import {
   convertPosition,
 } from '../../../utils/hooks/convert';
 import CareerTable from '../../common/CareerTable';
-import ReactDOMServer from 'react-dom/server';
-import ResumePdf from '../ResumePdf';
 import API from '../../../api/index';
 import { htmlConvert } from '../../../utils/hooks/htmlConvert';
+
 const tabs = [
   { label: '경력', id: 'career' },
   { label: '자격증', id: 'certificate' },
@@ -79,7 +77,6 @@ const ResumeWeb = () => {
   const [selectedTab, setSelectedTab] = useState('career');
   const [profileHeight, setProfileHeight] = useState<number | undefined>(0);
   const [toggle, setToggle] = useState<boolean>(false);
-  const [html, setHtml] = useState<string>('');
 
   const { id } = useParams<{ id: string }>();
 
@@ -126,7 +123,8 @@ const ResumeWeb = () => {
     const userData = await getUserInfo(id);
     console.log(userData);
     const resume = await getResume(id);
-    console.log(htmlConvert(userData, resume));
+    const convertedHTML = htmlConvert(userData, resume);
+    API.updateResumeHTML({ html: convertedHTML });
   };
 
   useEffect(() => {

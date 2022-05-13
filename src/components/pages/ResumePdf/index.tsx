@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import CareerTable from '../../common/CareerTable';
 import {
   convertBirth,
@@ -8,9 +8,7 @@ import {
   locationConvert,
 } from '../../../utils/hooks/convert';
 import { changeDateYM } from '../../../utils/hooks/calculateDuration';
-import API from '../../../api/index';
 import { resumeDataType, userInfoDataType } from '../../../api/types';
-import { resumeData, userInfoData } from '../../../api/ResumeData';
 import './resumePdf.css';
 
 interface ResumeProps {
@@ -21,10 +19,6 @@ interface ResumeProps {
 const ResumePdf: React.FC<ResumeProps> = ({ userInfoData, resumeData }) => {
   // const { userInfoData } = useGetUserInfo(id);
   // const { resumeData } = useGetResume(id);
-
-  useEffect(() => {
-    API.getJWT({ user_id: '9' });
-  }, []);
 
   return (
     <div className={'PdfWrapper'}>
@@ -61,7 +55,7 @@ const ResumePdf: React.FC<ResumeProps> = ({ userInfoData, resumeData }) => {
             />
           </div>
           <div className={'PdfCategory'}>경력</div>
-          <hr className={'PdfHr'} />
+          <div className={'PdfHr'} />
           <div className={'PdfCareerWrapper'}>
             {resumeData.career.map((data, id) => (
               <div className={'PdfCareerInner'} key={id}>
@@ -77,14 +71,14 @@ const ResumePdf: React.FC<ResumeProps> = ({ userInfoData, resumeData }) => {
                   <div className="PdfCompany">{data.company}</div>
                   <div className={'PdfWorkedOn'}>{data.workedOn}</div>
                   {resumeData.career.length - 1 !== id && (
-                    <hr className={'PdfHr'} />
+                    <div className={'PdfHr'} />
                   )}
                 </div>
               </div>
             ))}
           </div>
           <div className={'PdfCategory'}>자격증</div>
-          <hr className={'PdfHr'} />
+          <div className={'PdfHr'} />
           <div className={'PdfCareerWrapper'}>
             {resumeData.certificate.map((data) => (
               <>
@@ -94,7 +88,7 @@ const ResumePdf: React.FC<ResumeProps> = ({ userInfoData, resumeData }) => {
             ))}
           </div>
           <div className={'PdfCategory'}>학력</div>
-          <hr className={'PdfHr'} />
+          <div className={'PdfHr'} />
           <div className={'PdfCareerWrapper'}>
             {resumeData.academic.map((data) => (
               <>
@@ -106,7 +100,7 @@ const ResumePdf: React.FC<ResumeProps> = ({ userInfoData, resumeData }) => {
             ))}
           </div>
           <div className={'PdfCategory'}>병역</div>
-          <hr className={'PdfHr'} />
+          <div className={'PdfHr'} />
           <div className={'PdfCareerWrapper'}>
             <div className={'PdfCompany'}>
               {convertMilitary(resumeData.military.service)}
@@ -116,12 +110,12 @@ const ResumePdf: React.FC<ResumeProps> = ({ userInfoData, resumeData }) => {
             </div>
           </div>
           <div className={'PdfCategory'}>자기소개</div>
-          <hr className={'PdfHr'} />
+          <div className={'PdfHr'} />
           <div className={'PdfCareerWrapper'}>
             <div className={'PdfWorkedOn'}>{userInfoData.introduce}</div>
           </div>
           <div className="PdfCategory">SNS</div>
-          <hr className={'PdfHr'} />
+          <div className={'PdfHr'} />
           {/*<PdfCareerWrapper>*/}
           {/*  {userInfoData.snsList.map((data, id) => (*/}
           {/*    <img key={id} src={data.url} />*/}
